@@ -1,11 +1,18 @@
 class Mover{
   
   constructor(){
-    this.location=createVector(random(width),random(height));
-    this.velocity=createVector(random(-2,2),random(-2,2));
+    //start location in the center of the screen
+    this.location=createVector(width/2,height/2);//(random(width),random(height));
+    //initial velocity is zero
+    this.velocity=createVector(0,0)//(random(-2,2),random(-2,2));
+    this.acceleration=createVector(-0.001, 0.01)
+
+    this.topSpeed=10;
   }
   
   update(){
+    this.velocity.add(this.acceleration);
+    this.velocity.limit(this.topSpeed)
     this.location.add(this.velocity);
   }
   
