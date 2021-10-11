@@ -14,6 +14,8 @@ class Mover{
     this.velocity.add(this.acceleration);
     this.velocity.limit(this.topSpeed)
     this.location.add(this.velocity);
+        //static function returns a p5 vector object
+    //p5.Vector.add(this.velocity, this.acceleration);
   }
   
   display(){
