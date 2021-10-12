@@ -11,6 +11,14 @@ class Mover{
   }
   
   update(){
+
+    // dir is a PVector that points from the mover’s location all the way to the mouse.
+    let mouse = createVector(mouseX,mouseY);
+    let dir = p5.Vector.sub(mouse,this.location);
+    dir.normalize();
+    dir.mult(0.9);
+    this.acceleration = dir;
+
     this.velocity.add(this.acceleration);
     this.velocity.limit(this.topSpeed)
     this.location.add(this.velocity);
