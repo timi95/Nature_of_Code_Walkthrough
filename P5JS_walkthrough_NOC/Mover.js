@@ -1,4 +1,5 @@
 class Mover{
+  //2.2 goals implement applyForce(); implement forces like wind, and gravity
   
   constructor(){
     //start location in the center of the screen
@@ -30,6 +31,11 @@ class Mover{
     stroke(10);
     fill(175);
     ellipse(this.location.x,this.location.y,16,16);
+  }
+
+  //2.2 applyForce stub
+  applyForce(force){
+    
   }
   
   
