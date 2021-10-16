@@ -25,6 +25,10 @@ class Mover{
     this.location.add(this.velocity);
         //static function returns a p5 vector object
     //p5.Vector.add(this.velocity, this.acceleration);
+
+    //2.3 The easiest way to implement clearing the acceleration for each frame is to multiply the
+    //PVector by 0 at the end of update().
+    this.acceleration.mult(0);
   }
   
   display(){
