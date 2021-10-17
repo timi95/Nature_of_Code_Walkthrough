@@ -7,6 +7,12 @@ function setup() {
 function draw() {
   background(220);
   
+
+  if (mouseIsPressed) {
+    const wind = createVector(0.5, 0)
+    mover.applyForce(wind);
+  }
+
   mover.update();
   mover.checkEdges();
   mover.display();

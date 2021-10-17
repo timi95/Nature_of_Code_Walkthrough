@@ -17,12 +17,13 @@ class Mover{
     let mouse = createVector(mouseX,mouseY);
     let dir = p5.Vector.sub(mouse,this.location);
     dir.normalize();
-    dir.mult(0.9);
-    this.acceleration = dir;
+    dir.mult(0.4);
+    this.acceleration.add(dir);
 
     this.velocity.add(this.acceleration);
     this.velocity.limit(this.topSpeed)
     this.location.add(this.velocity);
+
         //static function returns a p5 vector object
     //p5.Vector.add(this.velocity, this.acceleration);
 
@@ -39,7 +40,7 @@ class Mover{
 
   //2.2 applyForce stub
   applyForce(force){
-    
+    this.acceleration.add(force)
   }
   
   
