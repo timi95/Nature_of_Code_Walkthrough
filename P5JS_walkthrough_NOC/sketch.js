@@ -13,19 +13,23 @@ function draw() {
   if (mouseIsPressed) {
     westernWind(mover);
     westernWind(balloon);
-
   }
   followMouseBehaviour(mover);
-
+  floatUpBehaviour(balloon);
+  
   mover.update();
   mover.checkEdges();
   mover.display();
 
   balloon.update();
+  balloon.checkEdges();
   balloon.display();
 }
 
-
+function floatUpBehaviour(object){
+  const floating = createVector(0,-0.01);
+  object.applyForce(floating);
+}
 
 function followMouseBehaviour(object){
   //ball follows mouse
@@ -39,6 +43,6 @@ function followMouseBehaviour(object){
 
 function westernWind(object){
   //a wind that pushes from left to right
-  const wind = createVector(0.5, 0)
+  const wind = createVector(0.5, 0);
   object.applyForce(wind);
 }
