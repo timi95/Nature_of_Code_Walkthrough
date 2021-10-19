@@ -13,18 +13,11 @@ class Mover{
   
   update(){
 
-    // dir is a PVector that points from the mover’s location all the way to the mouse.
-    let mouse = createVector(mouseX,mouseY);
-    let dir = p5.Vector.sub(mouse,this.location);
-    dir.normalize();
-    dir.mult(0.4);
-    this.acceleration.add(dir);
-
     this.velocity.add(this.acceleration);
     this.velocity.limit(this.topSpeed)
     this.location.add(this.velocity);
 
-        //static function returns a p5 vector object
+    //static function returns a p5 vector object
     //p5.Vector.add(this.velocity, this.acceleration);
 
     //2.3 The easiest way to implement clearing the acceleration for each frame is to multiply the
