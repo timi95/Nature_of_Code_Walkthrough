@@ -1,5 +1,6 @@
 let mover;
 let balloon;
+let wind_noise_t = 0;
 function setup() {
   mover = new Mover();
   balloon = new Balloon();
@@ -12,8 +13,8 @@ function draw() {
   // click for wind
   if (mouseIsPressed) {
     westernWind(mover);
-    westernWind(balloon);
   }
+  westernWind(balloon);
   followMouseBehaviour(mover);
   floatUpBehaviour(balloon);
   
@@ -42,7 +43,9 @@ function followMouseBehaviour(object){
 }
 
 function westernWind(object){
+  wind_noise_t+=0.01;
   //a wind that pushes from left to right
-  const wind = createVector(0.5, 0);
+  let noiseMap = map(noise(wind_noise_t),0,1,0,255);
+  const wind = createVector(noiseMap, 0);
   object.applyForce(wind);
 }

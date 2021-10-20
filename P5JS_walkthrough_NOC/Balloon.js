@@ -18,6 +18,8 @@ class Balloon{
         this.velocity.limit(this.topSpeed)
         this.location.add(this.velocity);
         this.acceleration.mult(0);
+
+        console.log(`Velocity: ${this.velocity}\n`)
       }
       
       display(){
