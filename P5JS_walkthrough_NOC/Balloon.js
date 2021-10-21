@@ -5,9 +5,9 @@ class Balloon{
         this.location=createVector(width/2, 200);//(random(width),random(height));
         this.velocity=createVector(0,0)
         this.acceleration=createVector(0, 0)
-        this.bounce=createVector(0, 400)
+        this.bounce=createVector(0, 10)
     
-        this.topSpeed=10;
+        this.topSpeed=2;
       }
   
 
