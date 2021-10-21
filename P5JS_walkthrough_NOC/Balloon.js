@@ -3,13 +3,11 @@ class Balloon{
     constructor(){
         //start location in the center of the screen
         this.location=createVector(width/2, 200);//(random(width),random(height));
-        //initial velocity is zero
-        this.velocity=createVector(0,0)//(random(-2,2),random(-2,2));
+        this.velocity=createVector(0,0)
         this.acceleration=createVector(0, 0)
-
-        this.bounce=createVector(0, 40)
+        this.bounce=createVector(0, 400)
     
-        this.topSpeed=2;
+        this.topSpeed=10;
       }
   
 
@@ -19,7 +17,7 @@ class Balloon{
         this.location.add(this.velocity);
         this.acceleration.mult(0);
 
-        console.log(`Velocity: ${this.velocity}\n`)
+        // console.log(`Velocity: ${this.velocity}\n`)
       }
       
       display(){
