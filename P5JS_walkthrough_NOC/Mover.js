@@ -5,10 +5,12 @@ class Mover{
     //start location in the center of the screen
     this.location=createVector(width/2,height/2);//(random(width),random(height));
     //initial velocity is zero
-    this.velocity=createVector(0,0)//(random(-2,2),random(-2,2));
-    this.acceleration=createVector(-0.001, 0.01)
+    this.velocity=createVector(0,0);//(random(-2,2),random(-2,2));
+    this.acceleration=createVector(-0.001, 0.01);
+    //2.4 incorporating mass
+    this.mass = 20.0;
 
-    this.topSpeed=10;
+    this.topSpeed= 5;
   }
   
   update(){
@@ -28,12 +30,16 @@ class Mover{
   display(){
     stroke(10);
     fill(175);
-    ellipse(this.location.x,this.location.y,16,16);
+    ellipse(
+      this.location.x,this.location.y,
+      1.6*this.mass, 1.6*this.mass);
   }
 
   //2.2 applyForce stub
   applyForce(force){
-    this.acceleration.add(force)
+    //Making a copy of the PVector before using it!
+     const f = p5.Vector.div(force, this.mass)/* Newton’s second law (with force accumulation and mass) */
+    this.acceleration.add(f);
   }
   
   
