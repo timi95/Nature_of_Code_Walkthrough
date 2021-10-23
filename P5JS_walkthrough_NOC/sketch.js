@@ -1,10 +1,17 @@
-let mover;
+let balls = Array(10);
 let balloon;
 let wind_noise_t = 0;
 let wind_noise_t2 = 1000;
+let topSpeed= 5;
+let largestSize=20;
 
 function setup() {
-  mover = new Mover();
+  for(let i=0; i< balls.length; i++) {
+    balls[i] = new Mover(
+                    random(0.1, topSpeed), createVector(random(1, width), random(1, height)));
+    console.log(balls[i]);
+  }
+
   balloon = new Balloon();
   createCanvas(400, 400);
 }
@@ -14,15 +21,21 @@ function draw() {
   
   // click for wind
   if (mouseIsPressed) {
-    westernWind(mover);
     westernWind(balloon);
   }
-  followMouseBehaviour(mover);
   floatUpBehaviour(balloon);
   
-  mover.update();
-  mover.checkEdges();
-  mover.display();
+  balls.forEach(ball=>{
+    if (mouseIsPressed) {
+      westernWind(ball);
+    }
+    followMouseBehaviour(ball);
+    
+    ball.update();
+    ball.checkEdges();
+    ball.display();
+  });
+  
 
   balloon.update();
   balloon.checkEdges();
@@ -36,7 +49,7 @@ function floatUpBehaviour(object){
 
 function followMouseBehaviour(object){
   //ball follows mouse
-  // dir is a PVector that points from the mover’s location all the way to the mouse.
+  // dir is a PVector that points from the ball’s location all the way to the mouse.
   const mouse = createVector(mouseX,mouseY);
   let dir = p5.Vector.sub(mouse,object.location);
   dir.normalize();

@@ -1,16 +1,15 @@
 class Mover{
   //2.2 goals implement applyForce(); implement forces like wind, and gravity
   
-  constructor(){
+  constructor(mass,location){
     //start location in the center of the screen
-    this.location=createVector(width/2,height/2);//(random(width),random(height));
+    this.location = location;
     //initial velocity is zero
     this.velocity=createVector(0,0);//(random(-2,2),random(-2,2));
     this.acceleration=createVector(-0.001, 0.01);
     //2.4 incorporating mass
-    this.mass = 20.0;
+    this.mass = mass;
 
-    this.topSpeed= 5;
   }
   
   update(){
@@ -45,14 +44,19 @@ class Mover{
   
   checkEdges() {
     if (this.location.x > width) {
-      this.location.x = 0;
-    } else if (this.location.x < 0) {
       this.location.x = width;
-    }
+      this.velocity.x *= -1;
+      } else if (this.location.x < 0) {
+        this.velocity.x *= -1;
+        this.location.x = 0;
+      }
+
     if (this.location.y > height) {
-      this.location.y = 0;
-    } else if (this.location.y < 0) {
+      this.velocity.y *= -1;
       this.location.y = height;
+    }  else if (this.location.y < 0) {
+      this.velocity.y *= -1;
+      this.location.y = 0;
     }
   }
 }
