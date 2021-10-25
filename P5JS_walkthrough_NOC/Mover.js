@@ -2,6 +2,8 @@ class Mover{
   //2.2 goals implement applyForce(); implement forces like wind, and gravity
   
   constructor(mass,location){
+
+
     //start location in the center of the screen
     this.location = location;
     //initial velocity is zero

@@ -26,6 +26,7 @@ function draw() {
   floatUpBehaviour(balloon);
   
   balls.forEach(ball=>{
+    gravityBehaviour(ball);
     if (mouseIsPressed) {
       westernWind(ball);
     }
@@ -40,6 +41,14 @@ function draw() {
   balloon.update();
   balloon.checkEdges();
   balloon.display();
+}
+
+
+function gravityBehaviour(object){
+  if(object.mass!==null||object.mass!==undefined&&object.mass){
+    const gravity = createVector(0, 0.1*object.mass);
+    object.applyForce(gravity);
+  }
 }
 
 function floatUpBehaviour(object){
