@@ -31,6 +31,7 @@ function draw() {
       westernWind(ball);
     }
     followMouseBehaviour(ball);
+    frictionBehaviour(ball);
     
     ball.update();
     ball.checkEdges();
@@ -49,6 +50,19 @@ function gravityBehaviour(object){
     const gravity = createVector(0, 0.1*object.mass);
     object.applyForce(gravity);
   }
+}
+
+function frictionBehaviour(object){
+  const c = 0.01; //the coefficient of friction
+  const normal = 1;//normal force of friction
+  const frictionMag = c*normal;
+  
+  let friction = object.velocity.copy();
+  friction.mult(-1);
+  friction.normalize();
+  friction.mult(frictionMag);
+  
+  object.applyForce(friction);
 }
 
 function floatUpBehaviour(object){
