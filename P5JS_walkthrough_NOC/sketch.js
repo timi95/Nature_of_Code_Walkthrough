@@ -8,8 +8,7 @@ let largestSize=20;
 function setup() {
   for(let i=0; i< balls.length; i++) {
     balls[i] = new Mover(
-                    random(0.1, topSpeed), createVector(random(1, width), random(1, height)));
-    console.log(balls[i]);
+                    random(0.1, largestSize), createVector(random(1, width), random(1, height)));
   }
 
   balloon = new Balloon();
