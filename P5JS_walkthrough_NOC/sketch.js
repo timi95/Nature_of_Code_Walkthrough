@@ -16,7 +16,7 @@ function setup() {
 }
 
 function draw() {
-  background(220);
+  background(200,50);
   
   // click for wind
   if (mouseIsPressed) {
@@ -52,7 +52,7 @@ function gravityBehaviour(object){
 }
 
 function frictionBehaviour(object){
-  const c = 0.01; //the coefficient of friction
+  const c = 0.1; //the coefficient of friction
   const normal = 1;//normal force of friction
   const frictionMag = c*normal;
   
@@ -81,7 +81,7 @@ function followMouseBehaviour(object){
 
 function westernWind(object){
   //a wind that pushes from left to right
-  let noiseMap = map(noise(wind_noise_t),0,1,-1,1);
+  let noiseMap = map(noise(wind_noise_t),0,1,0,1);
   let noiseMap2 = map(noise(wind_noise_t2),0,1,-1,1);
 
   wind_noise_t+=0.01;
