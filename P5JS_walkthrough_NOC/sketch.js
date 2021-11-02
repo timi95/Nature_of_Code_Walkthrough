@@ -8,16 +8,19 @@ let largestSize=20;
 function setup() {
   for(let i=0; i< balls.length; i++) {
     balls[i] = new Mover(
-                    random(0.1, largestSize), createVector(random(1, width), random(1, height)));
+                    random(0.1, largestSize), createVector(random(1, windowWidth), random(1, windowHeight)));
   }
 
   balloon = new Balloon();
+  liquid = new Liquid(0, windowHeight/2, windowWidth, windowHeight/2, 0.1);
   createCanvas(400, 400);
 }
 
 function draw() {
+  liquid.display();
   background(200,50);
   
+
   // click for wind
   if (mouseIsPressed) {
     westernWind(balloon);
@@ -26,12 +29,17 @@ function draw() {
   
   balls.forEach(ball=>{
     gravityBehaviour(ball);
+    
+    if (liquid.submerges(ball)) {
+      dragBehaviour(ball, liquid);
+    }
+    
     if (mouseIsPressed) {
       westernWind(ball);
     }
     followMouseBehaviour(ball);
     frictionBehaviour(ball);
-    
+
     ball.update();
     ball.checkEdges();
     ball.display();
@@ -43,6 +51,18 @@ function draw() {
   balloon.display();
 }
 
+
+function dragBehaviour(object, liquid) {
+  let speed = object.velocity.mag();
+  let dragMagnitude = liquid.c * speed * speed; //The force’s magnitude: Cd * v~2~
+  let drag = object.velocity.copy();
+  drag.mult(-1);
+  drag.normalize(); /*The force's direction: -1 * velocity
+  Finalize the force: magnitude and direction
+  // together.*/
+  drag.mult(dragMagnitude);
+  object.applyForce(drag);
+}
 
 function gravityBehaviour(object){
   if(object.mass!==null||object.mass!==undefined&&object.mass){
