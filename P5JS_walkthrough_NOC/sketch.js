@@ -13,6 +13,7 @@ function setup() {
 
   balloon = new Balloon();
   liquid = new Liquid(0, windowHeight/2, windowWidth, windowHeight/2, 0.1);
+  attractor = new Attractor();
   createCanvas(400, 400);
 }
 
@@ -27,9 +28,7 @@ function draw() {
   }
   floatUpBehaviour(balloon);
   
-  balls.forEach(ball=>{
-    gravityBehaviour(ball);
-    
+  balls.forEach(ball=>{    
     if (liquid.submerges(ball)) {
       dragBehaviour(ball, liquid);
     }
@@ -37,9 +36,15 @@ function draw() {
     if (mouseIsPressed) {
       westernWind(ball);
     }
+    gravityBehaviour(ball);
     followMouseBehaviour(ball);
     frictionBehaviour(ball);
 
+    //apply attraction force
+    ball.applyForce(
+    attractor.attract(ball));
+    
+    attractor.display();
     ball.update();
     ball.checkEdges();
     ball.display();
@@ -72,7 +77,7 @@ function gravityBehaviour(object){
 }
 
 function frictionBehaviour(object){
-  const c = 0.1; //the coefficient of friction
+  const c = 0.01; //the coefficient of friction
   const normal = 1;//normal force of friction
   const frictionMag = c*normal;
   
