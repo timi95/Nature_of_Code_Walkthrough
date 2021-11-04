@@ -28,7 +28,7 @@ function draw() {
   }
   floatUpBehaviour(balloon);
   
-  balls.forEach(ball=>{    
+  balls.forEach((ball,i)=>{    
     if (liquid.submerges(ball)) {
       dragBehaviour(ball, liquid);
     }
@@ -36,15 +36,18 @@ function draw() {
     if (mouseIsPressed) {
       westernWind(ball);
     }
-    gravityBehaviour(ball);
+    // gravityBehaviour(ball);
     followMouseBehaviour(ball);
     frictionBehaviour(ball);
 
     //apply attraction force
-    ball.applyForce(
-    attractor.attract(ball));
+        attractBehaviour(balls[constrain(i--,0,balls.length)],ball);
+    /*using constrain trickery to reference the previous ball as an attractor*/ 
+    // attractor.display();
+    // attractBehaviour(attractor, ball); /*functional style*/
+    // ball.applyForce(
+    // attractor.attract(ball)); /*object oriented style*/
     
-    attractor.display();
     ball.update();
     ball.checkEdges();
     ball.display();
@@ -56,6 +59,18 @@ function draw() {
   balloon.display();
 }
 
+
+  function attractBehaviour(attractor, mover) {
+    const G = 1;
+    let attraction = p5.Vector.sub(attractor.location, mover.location);
+    let distance = attraction.mag();
+    distance = constrain(distance,5,25);
+    attraction.normalize();
+    let strength = (G * attractor.mass * mover.mass) / (distance * distance);
+    
+    attraction.mult(strength); /* What’s the force’s magnitude?*/
+    mover.applyForce(attraction);
+  }
 
 function dragBehaviour(object, liquid) {
   let speed = object.velocity.mag();
