@@ -40,9 +40,17 @@ function draw() {
     followMouseBehaviour(ball);
     frictionBehaviour(ball);
 
-    //apply attraction force
-        attractBehaviour(balls[constrain(i--,0,balls.length)],ball);
-    /*using constrain trickery to reference the previous ball as an attractor*/ 
+    //apply attraction forces
+    //polarity included
+    //each mover is attracted or repelled by the preceding one
+        // attractBehaviour(balls[constrain(i--,0,balls.length)],ball);/*using constrain trickery to reference the previous ball as an attractor*/ 
+    
+    // full combination of attraction or repulsion
+        balls.forEach(repellantBall =>{
+      attractBehaviour(repellantBall,ball,-1);
+    });
+    
+
     // attractor.display();
     // attractBehaviour(attractor, ball); /*functional style*/
     // ball.applyForce(
@@ -60,7 +68,7 @@ function draw() {
 }
 
 
-  function attractBehaviour(attractor, mover) {
+  function attractBehaviour(attractor, mover, polarity) {
     const G = 1;
     let attraction = p5.Vector.sub(attractor.location, mover.location);
     let distance = attraction.mag();
@@ -69,6 +77,9 @@ function draw() {
     let strength = (G * attractor.mass * mover.mass) / (distance * distance);
     
     attraction.mult(strength); /* What’s the force’s magnitude?*/
+    if(polarity == -1){
+      attraction.mult(-1);
+    }
     mover.applyForce(attraction);
   }
 
