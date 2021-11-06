@@ -1,7 +1,7 @@
-let angle = 60;
+let angle = 0;
 function setup() {
   createCanvas(400, 400);
-  angleMode(DEGREES)
+  angleMode(RADIANS)
 }
 
 function draw() {
@@ -19,7 +19,6 @@ function draw() {
          0-50,0-50);
     ellipse( 0,0, 16, 16);
     ellipse( 0-50,0-50, 16, 16);
-    angle += 1;
+    angle += 0.01;
 
-  
 }
