@@ -11,6 +11,11 @@ class Mover{
     this.acceleration=createVector(-0.001, 0.01);
     //2.4 incorporating mass
     this.mass = mass;
+    
+    /**/
+    this.angle = 0;
+    this.aVelocity = 0;
+    this.aAcceleration = this.acceleration.x/10;
 
   }
   
@@ -23,6 +28,10 @@ class Mover{
     //static function returns a p5 vector object
     //p5.Vector.add(this.velocity, this.acceleration);
 
+    this.aVelocity += this.aAcceleration; //Newfangled angular motion
+    this.angle += this.aVelocity;
+
+    
     //2.3 The easiest way to implement clearing the acceleration for each frame is to multiply the
     //PVector by 0 at the end of update().
     this.acceleration.mult(0);
@@ -31,9 +40,21 @@ class Mover{
   display(){
     stroke(10);
     fill(175);
-    ellipse(
-      this.location.x,this.location.y,
-      1.6*this.mass, 1.6*this.mass);
+    
+    
+    rectMode(CENTER);
+    // pushMatrix() and popMatrix() are
+    // necessary so that the rotation of this shape
+    // doesn’t affect the rest of our world.
+    push();
+    translate(this.location.x,this.location.y); 
+    //Set the origin at the shape’s location.
+    rotate(angle);
+    rect(0,0,this.mass*16,this.mass*16);
+    //ellipse(
+      // this.location.x,this.location.y,
+      // 1.6*this.mass, 1.6*this.mass);
+    pop();
   }
 
   //2.2 applyForce stub
