@@ -40,7 +40,9 @@ class Mover{
   display(){
     stroke(10);
     fill(175);
-    
+//      ellipse(
+//       this.location.x,this.location.y,
+//       1.6*this.mass, 1.6*this.mass);
     
     rectMode(CENTER);
     // pushMatrix() and popMatrix() are
@@ -49,11 +51,9 @@ class Mover{
     push();
     translate(this.location.x,this.location.y); 
     //Set the origin at the shape’s location.
-    rotate(angle);
-    rect(0,0,this.mass*16,this.mass*16);
-    //ellipse(
-      // this.location.x,this.location.y,
-      // 1.6*this.mass, 1.6*this.mass);
+    rotate(this.angle);
+    rect(0,0,this.mass*2,this.mass*2);
+   
     pop();
   }
 
