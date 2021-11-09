@@ -3,7 +3,7 @@ class Attractor {
 // move. We just need a mass and a location.
 
   constructor() {
-    this.location = new createVector(windowWidth/2,windowHeight/2);
+    this.location = new createVector(width/2,height/2);
     this.mass = 20;
     this.G = 1;
   }
