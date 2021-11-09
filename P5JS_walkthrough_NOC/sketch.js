@@ -2,7 +2,8 @@ let angle = 0; //Location
 let aVelocity = 0; //Velocity
 let aAcceleration = 0.001; //Acceleration
 let largestSize = 20;
-  let movers = [];
+let movers = [];
+let attractor;
 
 function setup() { 
     for(let i=0; i< 10; i++) {
@@ -14,18 +15,19 @@ function setup() {
   }
   createCanvas(400, 400);
   // angleMode(RADIANS);
-  
+  attractor = new Attractor();
 }
 
 function draw() {
   background(200,50);
   
- 
   
    movers.forEach((mover,i)=>{ 
      
-    gravityBehaviour(mover);
-    followMouseBehaviour(mover);
+    // gravityBehaviour(mover);
+    // followMouseBehaviour(mover);
+    attractionBehaviour(attractor, mover);
+    attractor.display();
     frictionBehaviour(mover);
 
      
