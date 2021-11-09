@@ -12,11 +12,13 @@ class Mover{
     //2.4 incorporating mass
     this.mass = mass;
     
-    /**/
+    
+    /*chapter 3 angle stuff */
     this.angle = 0;
     this.aVelocity = 0;
     this.aAcceleration = this.acceleration.x/10;
-
+    this.r = sqrt(this.mass) * 2;
+    
   }
   
   update(){
@@ -44,15 +46,19 @@ class Mover{
 //       this.location.x,this.location.y,
 //       1.6*this.mass, 1.6*this.mass);
     
-    rectMode(CENTER);
+    // rectMode(CENTER);
     // pushMatrix() and popMatrix() are
     // necessary so that the rotation of this shape
     // doesn’t affect the rest of our world.
     push();
     translate(this.location.x,this.location.y); 
     //Set the origin at the shape’s location.
+    this.angle = this.velocity.heading();//points the object in the direction it's heading
     rotate(this.angle);
-    rect(0,0,this.mass*2,this.mass*2);
+    // rect(0,0,this.mass*2,this.mass*2);
+    triangle(-this.r,-this.r/2,
+             -this.r,this.r/2,
+             this.r, 0)
    
     pop();
   }
