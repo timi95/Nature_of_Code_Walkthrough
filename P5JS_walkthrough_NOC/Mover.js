@@ -8,15 +8,16 @@ class Mover{
     this.location = location;
     //initial velocity is zero
     this.velocity=createVector(0,0);//(random(-2,2),random(-2,2));
-    this.acceleration=createVector(-0.001, 0.01);
+    this.acceleration=createVector(-0.001, 0.001);
     //2.4 incorporating mass
     this.mass = mass;
     
     
     /*chapter 3 angle stuff */
+    this.time = random(-1,1);//for the noise map
     this.angle = 0;
     this.aVelocity = 0;
-    this.aAcceleration = this.acceleration.x/10;
+    this.aAcceleration = 0;//this.acceleration.x/1000;
     this.r = sqrt(this.mass) * 2;
     
   }
@@ -32,21 +33,26 @@ class Mover{
 
     this.aVelocity += this.aAcceleration; //Newfangled angular motion
     this.angle += this.aVelocity;
+    
+    this.velocity = p5.Vector.fromAngle(this.angle)
 
     
     //2.3 The easiest way to implement clearing the acceleration for each frame is to multiply the
     //PVector by 0 at the end of update().
     this.acceleration.mult(0);
+    this.time+=0.01
   }
   
   display(){
     stroke(10);
     fill(175);
-//      ellipse(
-//       this.location.x,this.location.y,
-//       1.6*this.mass, 1.6*this.mass);
-    
+     /*ellipse(
+       this.location.x,this.location.y,
+      1.6*this.mass, 1.6*this.mass);*/
     // rectMode(CENTER);
+    // rect(0,0,this.mass*2,this.mass*2);
+    
+    
     // pushMatrix() and popMatrix() are
     // necessary so that the rotation of this shape
     // doesn’t affect the rest of our world.
@@ -55,7 +61,6 @@ class Mover{
     //Set the origin at the shape’s location.
     this.angle = this.velocity.heading();//points the object in the direction it's heading
     rotate(this.angle);
-    // rect(0,0,this.mass*2,this.mass*2);
     triangle(-this.r,-this.r/2,
              -this.r,this.r/2,
              this.r, 0)

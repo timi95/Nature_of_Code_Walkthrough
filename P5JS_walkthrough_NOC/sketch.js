@@ -22,13 +22,20 @@ function draw() {
   background(200,50);
   
   
+  if(keyIsDown(LEFT_ARROW)){
+    movers[0].angle -=0.1;
+  } else if(keyIsDown(RIGHT_ARROW)){
+    movers[0].angle +=0.1;
+  }
+  
+  
    movers.forEach((mover,i)=>{ 
      
     // gravityBehaviour(mover);
     // followMouseBehaviour(mover);
-    attractionBehaviour(attractor, mover);
+    // attractionBehaviour(attractor, mover);
     attractor.display();
-    frictionBehaviour(mover);
+    // frictionBehaviour(mover);
 
      
     mover.update();
