@@ -38,9 +38,9 @@ function draw() {
     // frictionBehaviour(mover);
 
      
-    mover.update();
-    mover.checkEdges();
-    mover.display();
+//     mover.update();
+//     mover.checkEdges();
+//     mover.display();
    })
   
   //draw baton
@@ -57,4 +57,24 @@ function draw() {
 //     angle += aVelocity; 
   // Angular equivalent of location.add(velocity);
 
+  
+  push();
+    translate(width/2,height/2);
+    let r = 150
+    stroke(255,0,200);
+    strokeWeight(4);
+    noFill();
+    circle(0,0,r*2);
+  
+  
+    strokeWeight(34);
+    stroke(255,230,33);
+    let x = r * cos(angle);
+    let y = r * sin(angle);
+    point(x,y);
+    angle +=0.01;
+  
+  pop();
+  
+  
 }
