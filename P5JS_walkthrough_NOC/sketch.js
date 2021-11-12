@@ -4,6 +4,7 @@ let aAcceleration = 0.001; //Acceleration
 let largestSize = 20;
 let movers = [];
 let attractor;
+let r = 150;
 
 function setup() { 
     for(let i=0; i< 10; i++) {
@@ -16,10 +17,11 @@ function setup() {
   createCanvas(400, 400);
   // angleMode(RADIANS);
   attractor = new Attractor();
+  background(200,20);
+  
 }
 
 function draw() {
-  background(200,50);
   
   
   if(keyIsDown(LEFT_ARROW)){
@@ -60,7 +62,6 @@ function draw() {
   
   push();
     translate(width/2,height/2);
-    let r = 150
     stroke(255,0,200);
     strokeWeight(4);
     noFill();
@@ -73,6 +74,7 @@ function draw() {
     let y = r * sin(angle);
     point(x,y);
     angle +=0.01;
+    r -=  0.1;
   
   pop();
   
