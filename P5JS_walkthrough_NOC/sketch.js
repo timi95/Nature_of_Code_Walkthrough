@@ -17,6 +17,7 @@ function setup() {
   createCanvas(400, 400);
   // angleMode(RADIANS);
   attractor = new Attractor();
+  oscillator = new Oscillator();
   // background(200,20);
   
 }
@@ -81,16 +82,21 @@ function draw() {
   
   
   //// 3.6 Simple Harmonic Motion
-  let period = 120;
-  let amplitude = 100;
-  let x = amplitude * cos(TWO_PI * frameCount / period);
+//   let period = 120;
+//   let amplitude = 100;
+//   let x = amplitude * cos(angle); //amplitude * cos(TWO_PI * frameCount / period);
   
-  push();
-    stroke(0);
-    fill(175);
-    translate(width/2,height/2);
-    line(0,0,x,0);
-    ellipse(x,0,20,20);
-  pop();
+//   push();
+//   angle += aVelocity;
+//   aVelocity += 0.0001;
+//     stroke(0);
+//     fill(175);
+//     translate(width/2,height/2);
+//     line(0,0,x,0);
+//     ellipse(x,0,20,20);
+//   pop();
+  
+  oscillator.oscillate();
+  oscillator.display();
   
 }
