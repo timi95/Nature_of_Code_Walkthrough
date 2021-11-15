@@ -1,10 +1,13 @@
-let angle = 0; //Location
-let aVelocity = 0; //Velocity
-let aAcceleration = 0.001; //Acceleration
-let largestSize = 20;
-let movers = [];
+let angles=[];
+let angleV=[];
+let angle=0; //Location
+let aVelocity=0; //Velocity
+let aAcceleration=0.001; //Acceleration
+let largestSize=20;
+let movers=[];
+let oscillators=[];
 let attractor;
-let r = 150;
+let r=4//150;
 
 function setup() { 
     for(let i=0; i< 10; i++) {
@@ -18,6 +21,12 @@ function setup() {
   // angleMode(RADIANS);
   attractor = new Attractor();
   oscillator = new Oscillator();
+  
+  let total = floor(width / (r * 2));
+  for (let i = 0; i < total + 1; i++) {
+    angles[i]=map(i, 0, total, 0, TWO_PI);
+    angleV[i]=0.01+i/100;
+  }
   // background(200,20);
   
 }
@@ -26,11 +35,11 @@ function draw() {
   background(200,20);
   
   
-  if(keyIsDown(LEFT_ARROW)){
-    movers[0].angle -=0.1;
-  } else if(keyIsDown(RIGHT_ARROW)){
-    movers[0].angle +=0.1;
-  }
+  // if(keyIsDown(LEFT_ARROW)){
+  //   movers[0].angle -=0.1;
+  // } else if(keyIsDown(RIGHT_ARROW)){
+  //   movers[0].angle +=0.1;
+  // }
   
   
 //    movers.forEach((mover,i)=>{ 
@@ -96,7 +105,18 @@ function draw() {
 //     ellipse(x,0,20,20);
 //   pop();
   
-  oscillator.oscillate();
-  oscillator.display();
+  angles.forEach( (wav,i)=>{
+       let y = map(sin(angles[i]), -1, 1, 0, height);
+    strokeWeight(4);
+    let x = map(i, 0, angles.length, r, width);
+        // line(x, 0, x, y);
+    circle(x, y, r * 2);
+    // vertex(x,y);
+    angles[i] += 0.02;
+    // angles[i] += angleV[i];
+  });
+  
+//   oscillator.oscillate();
+//   oscillator.display();
   
 }
