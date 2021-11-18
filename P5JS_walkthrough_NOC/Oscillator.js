@@ -1,9 +1,9 @@
 class Oscillator {
 
-    constructor() {
+    constructor(velocity) {
       this.angle = new createVector();
       
-      this.velocity = new createVector(
+      this.velocity = velocity? velocity: new createVector(
         random(-0.05,0.05),random(-0.05,0.05));
       
       this.amplitude = new createVector(
@@ -14,7 +14,7 @@ class Oscillator {
     }
     display() {
       //Random velocities and amplitudes
-      let x = sin(this.angle.x)*this.amplitude.x; //Oscillating on the x-axis
+      let x = cos(this.angle.x)*this.amplitude.x; //Oscillating on the x-axis
       let y = sin(this.angle.y)*this.amplitude.y; //Oscillating on the y-axis
       push();
       translate(width/2,height/2);

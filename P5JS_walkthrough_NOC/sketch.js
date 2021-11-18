@@ -29,6 +29,8 @@ function setup() {
   }
   // background(200,20);
   
+  
+  pend = new Pendulum();
 }
 
 function draw() {
@@ -105,19 +107,21 @@ function draw() {
 //     ellipse(x,0,20,20);
 //   pop();
   
-  angles.forEach( (wav,i)=>{
-       let y = map(sin(angles[i]), -1, 1, 0, height);
-    strokeWeight(4);
-    let x = map(i, 0, angles.length, r, width);
-        // line(x, 0, x, y);
-    circle(x, y, r * 2);
-    // vertex(x,y);
-    angles[i] += 0.02;
-    angles[i] += angleV[i];
-  });
+  // angles.forEach( (wav,i)=>{
+  //      let y = map(sin(angles[i]), -1, 1, 0, height);
+  //   strokeWeight(4);
+  //   let x = map(i, 0, angles.length, r, width);
+  //       // line(x, 0, x, y);
+  //   circle(x, y, r * 2);
+  //   // vertex(x,y);
+  //   angles[i] += 0.02;
+  //   angles[i] += angleV[i];
+  // });
   
 //   oscillator.oscillate();
 //   oscillator.display();
   
-
+  pend.update();
+  pend.display();
+  
 }
