@@ -6,6 +6,7 @@ let aAcceleration=0.001; //Acceleration
 let largestSize=20;
 let movers=[];
 let oscillators=[];
+let waves=[];
 let attractor;
 let r=4//150;
 
@@ -17,20 +18,31 @@ function setup() {
       createVector(random(1, windowWidth), random(1, windowHeight))
       ) );
   }
-  createCanvas(400, 400);
+  createCanvas(windowWidth, 400);
   // angleMode(RADIANS);
-  attractor = new Attractor();
-  oscillator = new Oscillator();
+//   attractor = new Attractor();
+//   oscillator = new Oscillator();
   
-  let total = floor(width / (r * 2));
-  for (let i = 0; i < total + 1; i++) {
-    angles[i]=map(i, 0, total, 0, TWO_PI);
-    angleV[i]=0.01+i/1000;
-  }
+//   let total = floor(width / (r * 2));
+//   for (let i = 0; i < total + 1; i++) {
+//     angles[i]=map(i, 0, total, 0, TWO_PI);
+//     angleV[i]=0.01+i/1000;
+//   }
   // background(200,20);
   
   
-  pend = new Pendulum();
+  //Waves setup
+    for (let i = 0; i < 5; i++) {
+    waves[i] = new Wave(
+      random(20, 80), 
+      random(100, 600), 
+      random(TWO_PI));
+  }
+  
+  
+  // pend = new Pendulum();
+  
+  
 }
 
 function draw() {
@@ -118,10 +130,22 @@ function draw() {
   //   angles[i] += angleV[i];
   // });
   
-//   oscillator.oscillate();
-//   oscillator.display();
+  // oscillator.oscillate();
+  // oscillator.display();
   
-  pend.update();
-  pend.display();
+  
+  //Waves example
+    for (let x = 0; x < width; x += 10) {
+    let y = 0;
+    waves.forEach(wave =>  y+= wave.evaluate(x));
+    noStroke();
+    fill(0,20,120);
+    ellipse(x, y + height / 2, 16);
+  }
+
+  waves.forEach(wave => wave.update());
+  
+  // pend.update();
+  // pend.display();
   
 }
