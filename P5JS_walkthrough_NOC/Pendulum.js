@@ -17,7 +17,9 @@ class Pendulum {
     let gravity = 0.4; /*Arbitrary constant
     Calculate acceleration according to our
     formula.*/
-    this.aAcceleration = -1 * gravity * sin(this.angle)/this.r;
+    let force = gravity * sin(this.angle);
+    
+    this.aAcceleration = (-1 * force) /this.r;
     this.aVelocity += this.aAcceleration; //Increment velocity.
     this.angle += this.aVelocity; //Increment angle.
     this.aVelocity *= this.damping;
@@ -25,7 +27,9 @@ class Pendulum {
   }
   
   display(){
-    this.location.set(this.r*sin(this.angle), this.r*cos(this.angle),0);
+    this.location.set(
+      this.r*sin(this.angle)+this.origin.x, 
+      this.r*cos(this.angle)+this.origin.y,0);
     this.location.add(this.origin);
     
     stroke(0);
