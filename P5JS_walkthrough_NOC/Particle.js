@@ -8,7 +8,7 @@ class Particle {
     
     this.angle = 0;
     this.aVelocity = 0;
-    this.aAcceleration = 0.001;
+    this.aAcceleration = 0.05;
     
     this.lifespan = 255;
     this.mass = 1
@@ -21,28 +21,20 @@ class Particle {
     this.acceleration.add(f);
   }
    
-  spin(){
-      rotate(this.angle);
-      this.aVelocity += this.aAcceleration;
-      this.angle += this.aVelocity
-   }
-  
-  
   update(){
-    push();
-      // rectMode(CENTER);
-      // translate(this.location.x, this.location.y);
-      this.spin();
-      this.display();
-    pop();  
-    this.velocity.add(this.acceleration);
+     this.velocity.add(this.acceleration);
     this.location.add(this.velocity);
     this.lifespan -= 2.0
+    
+    // this.aAcceleration = this.acceleration.x;
+    this.aVelocity += this.aAcceleration;
+    this.angle += this.aVelocity;
+    // this.acceleration.set(0,0);
   }
   
    run() {
     this.update();
-
+    this.display();
   }
   
   isDead() {
@@ -56,9 +48,16 @@ class Particle {
   
   
   display(){
+    angleMode(DEGREES);
     // Since our life ranges from 255 to 0 we can use it for alpha
-    stroke(0,this.lifespan);
-    fill(175, this.lifespan);
-    rect(this.location.x, this.location.y,70,10);
+    push();
+        rectMode(CENTER);
+        translate(this.location.x, this.location.y);
+        rotate(this.angle);
+        stroke(0,this.lifespan);
+        fill(175, this.lifespan);
+        rect(0, 0,70,10);
+    pop(); 
+
   }
 }
