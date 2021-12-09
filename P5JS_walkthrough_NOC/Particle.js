@@ -4,11 +4,12 @@ class Particle {
     this.location = _location? 
       _location: createVector();
     this.velocity = createVector();
-    this.acceleration = createVector(0,0.05);
+    this.acceleration = createVector(
+      random(0,0.06), random(0,0.05));
     
     this.angle = 0;
     this.aVelocity = 0;
-    this.aAcceleration = 0.05;
+    this.aAcceleration = random(0,0.1);
     
     this.lifespan = 255;
     this.mass = 1
