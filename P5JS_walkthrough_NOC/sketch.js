@@ -4,7 +4,7 @@ function setup() {
 
   for(let i =0; i<10; i++) {
     particles.push (
-      new Particle( createVector(width/2, 10))
+      new Particle(createVector(width/2, 10))
     );
   }
 }
