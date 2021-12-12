@@ -4,7 +4,7 @@ function setup() {
 
   for(let i =0; i<10; i++) {
     particles.push (
-      new Particle(createVector(width/2, 10))
+      new Particle( createVector(width/2, 50))
     );
   }
 }
@@ -13,8 +13,9 @@ function draw() {
   background(255);
   createCanvas(windowWidth, 400);
   
+  // console.log(particles.length);
   particles.forEach(p=>{
   p.run();
-  if( p.isDead() ) { delete p; }
+  if( p.isDead() ) { particles.pop(p); }
   });
 }
