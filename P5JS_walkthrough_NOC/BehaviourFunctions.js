@@ -73,3 +73,15 @@ function westernWind(object){
   wind.mag(0.1)
   object.applyForce(wind);
 }
+
+function rotationBehaviour(object){
+    
+  push();
+    translate(object.location.x, object.location.y);
+    rotate(object.angle);
+    object.draw();
+    // angle += 0.01;
+    object.aVelocity += object.aAcceleration;
+    object.angle += object.aVelocity; 
+  pop();
+}
