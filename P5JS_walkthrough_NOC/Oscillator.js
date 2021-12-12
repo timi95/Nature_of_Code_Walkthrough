@@ -9,9 +9,11 @@ class Oscillator {
       this.amplitude = new createVector(
         random(width/2),random(height/2));
     }
+  
     oscillate() {
       this.angle.add(this.velocity);
     }
+  
     display() {
       //Random velocities and amplitudes
       let x = cos(this.angle.x)*this.amplitude.x; //Oscillating on the x-axis
