@@ -9,7 +9,7 @@ class Particle {
     
     this.angle = 0;
     this.aVelocity = 0;
-    this.aAcceleration = random(0,0.1);
+    this.aAcceleration = random(-0.1,0.1);
     
     this.lifespan = 255;
     this.mass = 1
