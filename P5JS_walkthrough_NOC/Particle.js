@@ -5,7 +5,7 @@ class Particle {
       _location: createVector();
     this.velocity = createVector();
     this.acceleration = createVector(
-      random(0,0.06), random(0,0.05));
+      random(-0.06,0.06), random(0,0.05));
     
     this.angle = 0;
     this.aVelocity = 0;
