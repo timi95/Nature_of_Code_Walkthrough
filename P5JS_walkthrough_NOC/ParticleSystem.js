@@ -1,6 +1,6 @@
 class ParticleSystem{
   constructor(_location, _size){
-    this.size = _size;
+    this.size = _size? _size: 10;
     this.origin = _location? 
       _location: createVector(width/2, height/2);
     this.particles = [];
@@ -13,8 +13,15 @@ class ParticleSystem{
     this.particles.push(new Particle(this.origin));
   }
   
+  setup(){
+       for(let i =0; i<this.size; i++) {
+         this.addParticle();  
+       }
+  }
+  
   run(){
-  this.particles.forEach(p=>{
+  this.particles.forEach((p, i)=>{
+    // gravityBehaviour(p);
     p.run();
     if( p.isDead() ) { this.particles.pop(p); }
     });
