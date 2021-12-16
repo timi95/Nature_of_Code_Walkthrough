@@ -1,8 +1,7 @@
 class Particle {
   
-  constructor(_location){
-    this.location = _location? 
-      _location: createVector();
+  constructor(x,y){
+    this.location = createVector(x,y);
     this.velocity = p5.Vector.random2D();
     this.velocity.mult(random(0.5, 5));
     this.acceleration = random(-0.06,0.06)

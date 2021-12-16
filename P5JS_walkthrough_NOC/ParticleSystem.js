@@ -1,29 +1,37 @@
 class ParticleSystem{
-  constructor(_location, _size){
-    this.size = _size? _size: 10;
-    this.origin = _location? 
-      _location: createVector(width/2, height/2);
+  constructor(x,y){
+  this.location = createVector(x,y);
     this.particles = [];
     
   }
   
-  addParticle() {
-  // The origin is passed to each Particle when
-  // it is added.
-    this.particles.push(new Particle(this.origin));
+  emit(num){
+    const number = num? num: 5;
+    for(let i = 0; i < number; i++) {
+    this.particles.push (
+      new Particle( this.location.x, this.location.y)
+    );
+  }
   }
   
-  setup(){
-       for(let i =0; i<this.size; i++) {
-         this.addParticle();  
-       }
+  update(){
+    
+  
+    this.particles.forEach(p=>{
+      p.update();
+    });      
+
+  for(let i = this.particles.length-1; i >=0; i--)
+    if( this.particles[i].isDead() ) 
+    { this.particles.splice(i,1); }
+    
   }
   
-  run(){
-  this.particles.forEach((p, i)=>{
-    // gravityBehaviour(p);
-    p.run();
-    if( p.isDead() ) { this.particles.pop(p); }
-    });
+  display(){
+    this.particles.forEach(p=>{
+      p.display();
+    });    
   }
+  
+
 }
