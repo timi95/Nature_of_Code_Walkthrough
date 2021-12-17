@@ -1,9 +1,15 @@
-let particles = [];
+let particles=[];
+let particleSystems=[];
+
+function mousePressed(){
+  particleSystems.push( new ParticleSystem(mouseX, mouseY))
+}
+
 function setup() { 
   createCanvas(windowWidth, 400);
 
 
-  ps = new ParticleSystem(width/2, 50);
+//   particleSystems[0] = new ParticleSystem(width/2, 50);
    
 }
 
@@ -26,7 +32,9 @@ function draw() {
 //   for(let i = particles.length-1; i >=0; i--)
 //     if( particles[i].isDead() ) 
 //     { particles.splice(i,1); }
-  ps.emit(5);
-  ps.update();
-  ps.display();
+  particleSystems.forEach(ps=>{  
+    ps.emit(1);
+    ps.update();
+    ps.display();
+  });
 }
