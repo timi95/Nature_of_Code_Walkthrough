@@ -12,6 +12,7 @@ class Particle {
     
     this.lifespan = 255;
     this.mass = random(0.01,0.1);
+    this.r = 10;
   }
   
   
@@ -57,7 +58,7 @@ class Particle {
         rotate(this.angle);
         stroke(0,this.lifespan);
         fill(175, this.lifespan);
-        rect(0, 0,70,10);
+        square(0,0, this.r);
     pop(); 
 
   }

@@ -9,7 +9,7 @@ class ParticleSystem{
     const number = num? num: 5;
     for(let i = 0; i < number; i++) {
     this.particles.push (
-      new Particle( this.location.x, this.location.y)
+      new RectangleP( this.location.x, this.location.y)
     );
   }
   }
