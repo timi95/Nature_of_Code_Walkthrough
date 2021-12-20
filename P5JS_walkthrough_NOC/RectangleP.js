@@ -13,11 +13,11 @@ class RectangleP extends Particle {
     angleMode(DEGREES);
     push();
         rectMode(CENTER);
-        translate(super.location.x, super.location.y);
-        rotate(super.angle);
-        stroke(0,super.lifespan);
-        fill(175, super.lifespan);
-        rect(0, 0,super.r*2,super.r);
+        translate(this.location.x, this.location.y);
+        rotate(this.angle);
+        stroke(0,this.lifespan);
+        fill(175, this.lifespan);
+        rect(0, 0,this.r*2,this.r);
     pop(); 
 
   }
