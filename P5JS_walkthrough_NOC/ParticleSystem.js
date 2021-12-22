@@ -8,9 +8,18 @@ class ParticleSystem{
   emit(num){
     const number = num? num: 5;
     for(let i = 0; i < number; i++) {
-    this.particles.push (
-      new RectangleP( this.location.x, this.location.y)
-    );
+      if(random(1) < 0.5){
+            this.particles.push (
+            new RectangleP(
+              this.location.x, 
+              this.location.y));
+      } else {
+         this.particles.push (
+          new Particle(
+            this.location.x,
+            this.location.y));
+      }
+
   }
   }
   
