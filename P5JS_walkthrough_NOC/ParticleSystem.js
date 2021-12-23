@@ -27,6 +27,7 @@ class ParticleSystem{
     
   
     this.particles.forEach(p=>{
+      gravityBehaviour(p);
       p.update();
     });      
 
