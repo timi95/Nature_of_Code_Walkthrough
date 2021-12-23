@@ -4,14 +4,17 @@ class Particle {
     this.location = createVector(x,y);
     this.velocity = p5.Vector.random2D();
     this.velocity.mult(random(0.5, 5));
-    this.acceleration = random(-0.06,0.06)
+    this.acceleration = createVector( 
+      random(-0.06,0.06),
+      random(-0.06,0.06));
+      
     
     this.angle = 0;
     this.aVelocity = 0;
     this.aAcceleration = random(-0.1,0.1);
     
     this.lifespan = 255;
-    this.mass = random(0.01,0.1);
+    this.mass = random(1, 15);
     this.r = 10;
   }
   
@@ -26,12 +29,12 @@ class Particle {
     // console.log("Acceleration to be added!" ,this.acceleration);    
     this.velocity.add(this.acceleration);
     this.location.add(this.velocity);
-    this.lifespan -= 2.0
     
     // this.aAcceleration = this.acceleration.x;
     this.aVelocity += this.aAcceleration;
     this.angle += this.aVelocity;
-    // this.acceleration.set(0,0);
+    this.acceleration.mult(0);
+    this.lifespan -= 2.0
   }
   
    run() {
@@ -53,12 +56,12 @@ class Particle {
     angleMode(DEGREES);
     // Since our life ranges from 255 to 0 we can use it for alpha
     push();
-        rectMode(CENTER);
+        // rectMode(CENTER);
         translate(this.location.x, this.location.y);
         rotate(this.angle);
         stroke(0,this.lifespan);
         fill(175, this.lifespan);
-        square(0,0, this.r);
+        ellipse(0,0, this.r*2);
     pop(); 
 
   }
