@@ -15,6 +15,9 @@ class Particle {
     
     this.lifespan = 255;
     this.mass = random(1, 15);
+    this.colour = {r:random(175),
+                  g:random(175),
+                  b:random(175)};
     this.r = 10;
   }
   
@@ -60,7 +63,11 @@ class Particle {
         translate(this.location.x, this.location.y);
         rotate(this.angle);
         stroke(0,this.lifespan);
-        fill(175, this.lifespan);
+        fill(
+          this.colour.r,
+          this.colour.g,
+          this.colour.b, 
+             this.lifespan);
         ellipse(0,0, this.r*2);
     pop(); 
 
