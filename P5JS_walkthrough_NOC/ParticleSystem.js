@@ -1,8 +1,7 @@
 class ParticleSystem{
   constructor(x,y){
   this.location = createVector(x,y);
-    this.particles = [];
-    
+  this.particles = [];
   }
   
   emit(num){
@@ -27,7 +26,6 @@ class ParticleSystem{
     
   
     this.particles.forEach(p=>{
-      gravityBehaviour(p);
       p.update();
     });      
 
