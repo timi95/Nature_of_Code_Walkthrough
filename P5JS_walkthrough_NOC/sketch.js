@@ -8,13 +8,13 @@ function mousePressed(){
 function setup() { 
   createCanvas(windowWidth, 400);
 
-
+  repellant = new Attractor();
 //   particleSystems[0] = new ParticleSystem(width/2, 50);
    
 }
 
 function draw() {
-  background(255);
+  background(100);
   createCanvas(windowWidth, 400);
   
   //   for(let i =0; i<5; i++) {
@@ -33,8 +33,13 @@ function draw() {
 //     if( particles[i].isDead() ) 
 //     { particles.splice(i,1); }
   particleSystems.forEach(ps=>{  
+    ps.particles.forEach(p=>{
+      attractionBehaviour(repellant,p,-1);
+      gravityBehaviour(p);
+    });
     ps.emit(1);
     ps.update();
     ps.display();
   });
+  repellant.display();
 }
