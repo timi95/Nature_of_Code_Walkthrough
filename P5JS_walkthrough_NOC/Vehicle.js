@@ -3,13 +3,13 @@ class Vehicle{
     this.location=createVector(0,0);
     this.velocity=createVector(0,0);
     this.acceleration=createVector(x,y);
-    this.r=3.0; //Additional variable for size
+    this.r=16.0; //Additional variable for size
     this.maxforce=4;
-    this.maxspeed=0.1;
+    this.maxspeed=1;
     this.mass=random(4, 10);
   }
   
-  udate(){
+  update(){
     this.velocity.add(this.acceleration);
     this.velocity.limit(this.maxspeed);
     this.location.add(this.velocity);
