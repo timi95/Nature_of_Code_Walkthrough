@@ -4,8 +4,8 @@ class Vehicle{
     this.velocity=createVector(0,0);
     this.acceleration=createVector(x,y);
     this.r=16.0; //Additional variable for size
-    this.maxforce=4;
-    this.maxspeed=1;
+    this.maxspeed=4;
+    this.maxforce=1;
     this.mass=random(4, 10);
   }
   
@@ -23,8 +23,7 @@ class Vehicle{
   
   seek(target){
     this.desired = p5.Vector.sub(target, this.location);
-    this.desired.normalize();
-    this.desired.mult(this.maxspeed);
+    this.desired.setMag(this.maxspeed);
     this.steer = p5.Vector.sub(this.desired, this.velocity);
     this.steer.limit(this.maxforce);
     this.applyForce(this.steer);

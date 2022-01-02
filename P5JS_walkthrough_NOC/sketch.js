@@ -4,7 +4,7 @@ function setup() {
 }
 
 function draw() {
-  background(0,20);
+  background(200,20);
   vehicle.update();
   vehicle.seek(createVector(mouseX, mouseY));
   vehicle.display();
