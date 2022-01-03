@@ -22,11 +22,12 @@ class Vehicle{
   }
   
   seek(target){
-    this.desired = p5.Vector.sub(target, this.location);
-    this.desired.setMag(this.maxspeed);
-    this.steer = p5.Vector.sub(this.desired, this.velocity);
-    this.steer.limit(this.maxforce);
-    this.applyForce(this.steer);
+    let force = p5.Vector.sub(target, this.location);
+    force.setMag(this.maxspeed);
+    force.sub(this.velocity);
+
+    force.limit(this.maxforce);
+   return force;
   }
   
   display(){

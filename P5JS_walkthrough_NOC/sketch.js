@@ -6,6 +6,8 @@ function setup() {
 function draw() {
   background(200,20);
   vehicle.update();
-  vehicle.seek(createVector(mouseX, mouseY));
+  vehicle.applyForce(
+    vehicle.seek(
+      createVector(mouseX, mouseY)));
   vehicle.display();
 }
