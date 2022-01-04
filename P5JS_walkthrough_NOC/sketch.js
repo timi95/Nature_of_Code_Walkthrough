@@ -17,8 +17,11 @@ function draw() {
   pursuer.display();
 
   target.update();
+  // target.applyForce(
+  // target.flee(
+  //  pursuer.location));
   target.applyForce(
-  target.flee(
-   pursuer.location));
+  target.evade(
+   pursuer));  
   target.display();
 }

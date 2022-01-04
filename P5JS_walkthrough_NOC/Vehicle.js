@@ -45,6 +45,11 @@ class Vehicle{
     this.acceleration.add(f);
   }
   
+  evade(vehicle){
+    let pursuit = this.pursue(vehicle);
+    return pursuit.mult(-1);
+  }
+  
   flee(target){
     return this.seek(target).mult(-1);
   }
