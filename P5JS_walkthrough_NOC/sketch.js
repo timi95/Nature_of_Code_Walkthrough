@@ -1,17 +1,24 @@
 function setup() { 
   createCanvas(windowWidth, 400);
-   vehicle = new Vehicle(width/2, height/2);
+  pursuer = new Vehicle(width/2, height/2);
+  target = new Vehicle(random(width), random(height));
 }
 
 function draw() {
+  createCanvas(windowWidth, 400);
   background(200,20);
-  vehicle.update();
-  // vehicle.applyForce(
-  //   vehicle.seek(
-  //     createVector(mouseX, mouseY)));
-  
-    vehicle.applyForce(
-    vehicle.flee(
-      createVector(mouseX, mouseY)));
-  vehicle.display();
+  pursuer.update();
+    pursuer.applyForce(
+    pursuer.pursue(
+      target));
+  // pursuer.applyForce(
+  //   pursuer.seek(
+  //     target.location));
+  pursuer.display();
+
+  target.update();
+  target.applyForce(
+  target.flee(
+   pursuer.location));
+  target.display();
 }
