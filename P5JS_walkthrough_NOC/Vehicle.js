@@ -1,12 +1,21 @@
 class Vehicle{
   constructor(x,y){
+    this.traits = {
+      r:random(255),
+      g:random(255),
+      b:random(255),
+      size:random(16),
+      speed:random(16),
+      force:random(1)
+    }
     this.location=createVector(0,0);
     this.velocity=createVector(0,0);
     this.acceleration=createVector(x,y);
-    this.r=16.0; //Additional variable for size
-    this.maxspeed=4;
-    this.maxforce=1;
-    this.mass=random(4, 10);
+    this.r=this.traits.size; //Additional variable for size
+    this.maxspeed=this.traits.speed;
+    this.maxforce=this.traits.force;
+    this.mass=this.traits.size;
+    
   }
   
   update(){
@@ -40,6 +49,13 @@ class Vehicle{
     return this.seek(target).mult(-1);
   }
   
+  pursue(vehicle){
+    let target = vehicle.location.copy();
+    let prediction = vehicle.velocity.copy().mult(10);
+    target.add(prediction);
+    return this.seek(target);
+  }
+  
   seek(target){
     let force = p5.Vector.sub(target, this.location);
     force.setMag(this.maxspeed);
@@ -50,7 +66,9 @@ class Vehicle{
   
   display(){
     let theta = this.velocity.heading() + PI/2;
-    fill(175);
+    fill(this.traits.r, 
+         this.traits.g, 
+         this.traits.b);
     stroke(0);
     push();
     translate(this.location.x, this.location.y);
