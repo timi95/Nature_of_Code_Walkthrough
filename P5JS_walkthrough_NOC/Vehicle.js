@@ -23,22 +23,37 @@ class Vehicle{
     this.velocity.limit(this.maxspeed);
     this.location.add(this.velocity);
     this.acceleration.mult(0);
-    this.wrap()
+    if(this.maxspeed <5
+      ||this.velocity.mag() <5){ this.wrap() }
+    else{ this.edgeGuard() }
   }
   
-  wrap() {
-        if (this.location.x > width) {
-          this.location.x = 0;
-        } else if (this.location.x < 0) {
-          this.location.x = width;
-        }
-        if (this.location.y > height) {
-          this.location.y = 0;
+  edgeGuard(){
 
-        } else if (this.location.y < 0) {
-          this.location.y = height;
-        }
+      if (this.location.x > width) {
+        this.applyForce(createVector(-10, 0));        
+      } else if (this.location.x < 0) {
+        this.applyForce(createVector(10, 0));
       }
+      if (this.location.y > height) {
+        this.applyForce(createVector(0, -10)); 
+      } else if (this.location.y < 0) {
+        this.applyForce(createVector(0, 10));   
+      }    
+  }
+  wrap() {
+      if (this.location.x > width) {
+        this.location.x = 0;
+      } else if (this.location.x < 0) {
+        this.location.x = width;
+      }
+      if (this.location.y > height) {
+        this.location.y = 0;
+
+      } else if (this.location.y < 0) {
+        this.location.y = height;
+      }
+    }
   
   applyForce(force){
     const f = p5.Vector.div(force, this.mass);

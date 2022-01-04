@@ -7,6 +7,12 @@ function setup() {
 function draw() {
   createCanvas(windowWidth, 400);
   background(200,20);
+  
+   let distance = p5.Vector.dist(pursuer.location, target.location);
+  if (distance < pursuer.r + target.r) {
+    target = new Vehicle(random(width), random(height));
+    pursuer.location.set(width / 2, height / 2);
+  }
   pursuer.update();
     pursuer.applyForce(
     pursuer.pursue(
