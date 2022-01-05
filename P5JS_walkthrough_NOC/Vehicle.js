@@ -69,6 +69,17 @@ class Vehicle{
     return this.seek(target).mult(-1);
   }
   
+  arrive(target){
+    let desired = this.seek(target);
+    let d = this.seek(target).mag();
+    if (d < 100) { 
+    let m = map(d,0,100,0, this.maxspeed);
+      return desired.mult(m);
+    } else {
+      return desired.mult(this.maxspeed);
+    }
+  }
+  
   pursue(vehicle){
     let target = vehicle.location.copy();
     let prediction = vehicle.velocity.copy().mult(10);

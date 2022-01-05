@@ -15,19 +15,22 @@ function draw() {
   }
   pursuer.update();
     pursuer.applyForce(
-    pursuer.pursue(
-      target));
+    pursuer.arrive(
+      createVector(width/2, height/2)));  
+    // pursuer.applyForce(
+    // pursuer.pursue(
+    //   target));
   // pursuer.applyForce(
   //   pursuer.seek(
   //     target.location));
   pursuer.display();
 
-  target.update();
-  // target.applyForce(
-  // target.flee(
-  //  pursuer.location));
-  target.applyForce(
-  target.evade(
-   pursuer));  
-  target.display();
+//   target.update();
+//   // target.applyForce(
+//   // target.flee(
+//   //  pursuer.location));
+//   target.applyForce(
+//   target.evade(
+//    pursuer));  
+//   target.display();
 }
