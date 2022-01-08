@@ -5,15 +5,15 @@ class Vehicle{
       g:random(255),
       b:random(255),
       size:random(16),
-      speed:random(16),
+      speed:random(10),
       force:random(1)
     }
     this.location=createVector(0,0);
     this.velocity=createVector(0,0);
     this.acceleration=createVector(x,y);
     this.r=this.traits.size; //Additional variable for size
-    this.maxspeed=this.traits.speed;
-    this.maxforce=this.traits.force;
+    this.maxspeed=6//this.traits.speed;
+    this.maxforce=0.4//this.traits.force;
     this.mass=this.traits.size;
     
   }
@@ -22,7 +22,7 @@ class Vehicle{
     this.velocity.add(this.acceleration);
     this.velocity.limit(this.maxspeed);
     this.location.add(this.velocity);
-    this.acceleration.mult(0);
+    this.acceleration.set(0,0);
     if(this.maxspeed <5
       ||this.velocity.mag() <5){ this.wrap() }
     else{ this.edgeGuard() }
@@ -69,17 +69,6 @@ class Vehicle{
     return this.seek(target).mult(-1);
   }
   
-  arrive(target){
-    let desired = this.seek(target);
-    let d = this.seek(target).mag();
-    if (d < 100) { 
-    let m = map(d,0,100,0, this.maxspeed);
-      return desired.mult(m);
-    } else {
-      return desired.mult(this.maxspeed);
-    }
-  }
-  
   pursue(vehicle){
     let target = vehicle.location.copy();
     let prediction = vehicle.velocity.copy().mult(10);
@@ -87,12 +76,20 @@ class Vehicle{
     return this.seek(target);
   }
   
-  seek(target){
+  seek(target, arrival = false) {
     let force = p5.Vector.sub(target, this.location);
-    force.setMag(this.maxspeed);
+    let desiredSpeed = this.maxspeed;
+    if (arrival) {
+      let slowRadius = 100;
+      let distance = force.mag();
+      if (distance < slowRadius) {
+        desiredSpeed = map(distance, 0, slowRadius, 0, this.maxspeed);
+      }
+    }
+    force.setMag(desiredSpeed);
     force.sub(this.velocity);
     force.limit(this.maxforce);
-   return force;
+    return force;
   }
   
   display(){

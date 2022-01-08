@@ -15,8 +15,8 @@ function draw() {
   }
   pursuer.update();
     pursuer.applyForce(
-    pursuer.arrive(
-      createVector(width/2, height/2)));  
+    pursuer.seek(
+      createVector(mouseX, mouseY), true));  
     // pursuer.applyForce(
     // pursuer.pursue(
     //   target));
