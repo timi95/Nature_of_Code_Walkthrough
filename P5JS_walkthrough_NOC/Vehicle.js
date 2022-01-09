@@ -60,6 +60,18 @@ class Vehicle{
     this.acceleration.add(f);
   }
   
+  wander(){
+    // let xoff =1000;
+    // let angle = noise(xoff) * TWO_PI * 2;
+    // let steer = p5.Vector.fromAngle(angle);
+    // steer.setMag(this.maxforce);
+    // this.applyForce(steer);
+    // this.xoff += 0.9;
+    // return steer;
+    return p5.Vector.random2D();
+
+  }
+  
   evade(vehicle){
     let pursuit = this.pursue(vehicle);
     return pursuit.mult(-1);

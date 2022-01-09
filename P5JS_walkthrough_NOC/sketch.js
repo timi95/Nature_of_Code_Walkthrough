@@ -16,7 +16,7 @@ function draw() {
   pursuer.update();
     pursuer.applyForce(
     pursuer.seek(
-      createVector(mouseX, mouseY), true));  
+     target.location, true));  
     // pursuer.applyForce(
     // pursuer.pursue(
     //   target));
@@ -33,4 +33,9 @@ function draw() {
 //   target.evade(
 //    pursuer));  
 //   target.display();
+  
+  target.update();
+  target.applyForce(
+  target.wander());  
+  target.display();
 }
