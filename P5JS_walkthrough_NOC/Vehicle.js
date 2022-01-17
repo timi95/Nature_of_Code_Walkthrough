@@ -60,6 +60,17 @@ class Vehicle{
     this.acceleration.add(f);
   }
   
+  follow(flow) {
+// What is the vector at that spot in the flow field?
+    let desired = flow.lookup(this.location);
+    desired.mult(this.maxspeed);
+ 
+// Steering is desired minus velocity
+    let steer = p5.Vector.sub(desired, this.velocity);
+    steer.limit(this.maxforce);
+    this.applyForce(steer);
+  }
+  
   wander(){
     // let xoff =1000;
     // let angle = noise(xoff) * TWO_PI * 2;
