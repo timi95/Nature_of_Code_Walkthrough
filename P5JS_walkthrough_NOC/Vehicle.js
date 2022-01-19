@@ -1,4 +1,4 @@
-class Vehicle{
+class Vehicle{ 
   constructor(x,y){
     this.traits = {
       r:random(255),
