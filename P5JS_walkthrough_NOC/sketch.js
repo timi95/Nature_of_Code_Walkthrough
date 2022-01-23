@@ -2,6 +2,7 @@ let angle;
 let xoff;
 function setup() { 
   createCanvas(windowWidth, 400);
+  flowField = new FlowField(1);
   pursuer = new Vehicle(width/2, height/2);
   target = new Vehicle(random(width), random(height));
   angle = 0;
@@ -42,21 +43,26 @@ function draw() {
   let x = (r/2) * cos(thetaX);
   let y = (r/2) * sin(thetaX);
   
+  //test
   //illustrative scaffolding
-  strokeWeight(5);
-  stroke(255);
-  noFill();
-  ellipse(target.location.x, target.location.y, r);
-  push();
-  strokeWeight(15);
-  stroke(255,5,5);
-    translate(target.location.x, target.location.y);
-    point(x,y);
-  pop();
+//   strokeWeight(5);
+//   stroke(255);
+//   noFill();
+//   ellipse(target.location.x, target.location.y, r);
+//   push();
+//   strokeWeight(15);
+//   stroke(255,5,5);
+//     translate(target.location.x, target.location.y);
+//     point(x,y);
+//   pop();
   
+  
+  // target.update();
+  // target.applyForce(
+  // target.seek(createVector(target.location.x+x, target.location.y+y)));  
+  // target.display();
   
   target.update();
-  target.applyForce(
-  target.seek(createVector(target.location.x+x, target.location.y+y)));  
+  target.follow(flowField);  
   target.display();
 }
