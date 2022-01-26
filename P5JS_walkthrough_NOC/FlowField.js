@@ -30,22 +30,24 @@ class FlowField{
   }
   
   display(){
+    let size = 5;
     for(let i=0; i<this.field.length;i++){
       for(let j =0; j< this.field[i].length; j++){
-        
+        push();
+        stroke(0);
+        strokeWeight(2);
+        fill(115,10,10);
+        translate(width*this.field[i][j].x, height*this.field[i][j].y);
+        rotate(this.field[i][j].heading());
+        beginShape();
+          vertex(0, -size*2);
+          vertex(-size, size*2);
+          vertex(size, size*2);
+        endShape(CLOSE);
+        pop();
       }
     }
-    fill(115);
-    stroke(0);
-    push();
-    translate(this.location.x, this.location.y);
-    rotate(theta);
-    beginShape();
-      vertex(0, -this.r*2);
-      vertex(-this.r, this.r*2);
-      vertex(this.r, this.r*2);
-    endShape(CLOSE);
-    pop();
+
   }
   
 }
