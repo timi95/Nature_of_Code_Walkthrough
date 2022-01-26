@@ -7,12 +7,17 @@ function setup() {
   target = new Vehicle(random(width), random(height));
   angle = 0;
   xoff=0;
+  
+  createCanvas(windowWidth, 400);
+  background(200,200);
+  flowField.display();
+  
 }
 
 function draw() {
-  createCanvas(windowWidth, 400);
+    createCanvas(windowWidth, 400);
   background(200,200);
-  
+
 //   pursuer.update();
 //     pursuer.applyForce(
 //     pursuer.seek(
