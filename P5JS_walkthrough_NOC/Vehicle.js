@@ -23,6 +23,7 @@ class Vehicle{
     this.velocity.limit(this.maxspeed);
     this.location.add(this.velocity);
     this.acceleration.set(0,0);
+    this.wrap();
     // if(this.maxspeed <5
     //   ||this.velocity.mag() <5){ this.wrap() }
     // else{ this.edgeGuard() }
@@ -42,27 +43,34 @@ class Vehicle{
       }    
   }
   wrap() {
-      if (this.location.x > width) {
-        this.location.x = 0;
-      } else if (this.location.x < 0) {
-        this.location.x = width;
-      }
-      if (this.location.y > height) {
-        this.location.y = 0;
+//       if (this.location.x > width) {
+//         this.location.x = 0;
+//       } else if (this.location.x < 0) {
+//         this.location.x = width;
+//       }
+//       if (this.location.y > height) {
+//         this.location.y = 0;
 
-      } else if (this.location.y < 0) {
-        this.location.y = height;
-      }
+//       } else if (this.location.y < 0) {
+//         this.location.y = height;
+//       }
+    
+    if (this.location.x < -this.r) this.location.x = width+this.r;
+    if (this.location.y < -this.r) this.location.y = height+this.r;
+    if (this.location.x > width+this.r) this.location.x = -this.r;
+    if (this.location.y > height+this.r) this.location.y = -this.r;
     }
   
   applyForce(force){
-    const f = p5.Vector.div(force, this.mass);
-    this.acceleration.add(f);
+    // const f = p5.Vector.div(force, this.mass);
+    // this.acceleration.add(f);
+    this.acceleration.add(force);
+    
   }
   
   follow(flow) {
 // What is the vector at that spot in the flow field?
-    let desired = flow.lookup(this.location);
+    let desired = flow.lookup(this.location).copy();
     desired.mult(this.maxspeed);
  
 // Steering is desired minus velocity
