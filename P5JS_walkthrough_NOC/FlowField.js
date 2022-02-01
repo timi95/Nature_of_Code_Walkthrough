@@ -15,7 +15,7 @@ class FlowField{
       let yoff = 0;
       for (let j = 0; j < this.rows; j++) {
         let theta = map(noise(xoff,yoff),0,1,0,TWO_PI);
-        this.field[i][j] = createVector(cos(theta),sin(theta));
+        this.field[i][j] = p5.Vector.fromAngle(theta);
         yoff += 0.1;
       }
       xoff += 0.1;
@@ -23,8 +23,10 @@ class FlowField{
   }
   
     lookup(lookup) {
-    let column = floor(constrain(this.cols,0,this.cols-1));
-    let row = floor(constrain(this.rows,0,this.rows-1));
+    let column = floor(
+      constrain(lookup.x/this.resolution,0,this.cols-1));
+    let row = floor(
+      constrain(lookup.y/this.resolution,0,this.rows-1));
       // console.log('lookup result: ', this.field[column][row] );
     return  this.field[column][row];
   }
@@ -33,21 +35,31 @@ class FlowField{
     let size = 5;
     for(let i=0; i<this.field.length;i++){
       for(let j =0; j< this.field[i].length; j++){
-        push();
-        stroke(0);
-        strokeWeight(2);
-        fill(115,10,10);
-        translate(width*this.field[i][j].x, height*this.field[i][j].y);
-        rotate(this.field[i][j].heading());
-        beginShape();
-          vertex(0, -size*2);
-          vertex(-size, size*2);
-          vertex(size, size*2);
-        endShape(CLOSE);
-        pop();
+         this.drawVector(this.field[i][j],
+                    i*this.resolution,
+                    j*this.resolution,
+                    this.resolution-2);
       }
     }
 
   }
   
+  // Renders a vector object 'v' as an arrow and a position 'x,y'
+   drawVector(v, x, y, scayl) {
+    push();
+      let arrowsize = 4;
+      // Translate to position to render vector
+      translate(x,y);
+      stroke('purple');
+      strokeWeight(2);
+      // Call vector heading function to get direction (note that pointing to the right is a heading of 0) and rotate
+      rotate(v.heading());
+      // Calculate length of vector & scale it to be bigger or smaller if necessary
+      let len = v.mag()*scayl;
+      // Draw three lines to make an arrow (draw pointing up since we've rotate to the proper direction)
+      line(0,0,len,0);
+      line(len,0,len-arrowsize,+arrowsize/2);
+      line(len,0,len-arrowsize,-arrowsize/2);
+    pop();
+  }
 }

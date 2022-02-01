@@ -1,10 +1,10 @@
-class Vehicle{ 
+class Vehicle{
   constructor(x,y){
     this.traits = {
       r:random(255),
       g:random(255),
       b:random(255),
-      size:random(16),
+      size:5,//random(16),
       speed:random(10),
       force:random(1)
     }
@@ -23,9 +23,9 @@ class Vehicle{
     this.velocity.limit(this.maxspeed);
     this.location.add(this.velocity);
     this.acceleration.set(0,0);
-    if(this.maxspeed <5
-      ||this.velocity.mag() <5){ this.wrap() }
-    else{ this.edgeGuard() }
+    // if(this.maxspeed <5
+    //   ||this.velocity.mag() <5){ this.wrap() }
+    // else{ this.edgeGuard() }
   }
   
   edgeGuard(){

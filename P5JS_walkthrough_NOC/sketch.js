@@ -2,7 +2,7 @@ let angle;
 let xoff;
 function setup() { 
   createCanvas(windowWidth, 400);
-  flowField = new FlowField(1);
+  flowField = new FlowField(10);
   pursuer = new Vehicle(width/2, height/2);
   target = new Vehicle(random(width), random(height));
   angle = 0;
@@ -10,7 +10,6 @@ function setup() {
   
   createCanvas(windowWidth, 400);
   background(200,200);
-  flowField.display();
   
 }
 
@@ -42,11 +41,11 @@ function draw() {
   
   
   // Perlin noise based wonderer
-  xoff+=0.01;
-  let r = 100;
-  thetaX=noise(xoff)*10;
-  let x = (r/2) * cos(thetaX);
-  let y = (r/2) * sin(thetaX);
+//   xoff+=0.01;
+//   let r = 100;
+//   thetaX=noise(xoff)*10;
+//   let x = (r/2) * cos(thetaX);
+//   let y = (r/2) * sin(thetaX);
   
   //test
   //illustrative scaffolding
@@ -70,4 +69,5 @@ function draw() {
   target.update();
   target.follow(flowField);  
   target.display();
+  flowField.display();
 }
