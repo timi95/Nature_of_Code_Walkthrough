@@ -1,8 +1,12 @@
 let angle;
 let xoff;
+let followers=[]
+
+function mousePressed(){
+  followers.push( new Vehicle(mouseX, mouseY))
+}
 function setup() { 
   createCanvas(windowWidth, 400);
-  flowField = new FlowField(10);
   pursuer = new Vehicle(width/2, height/2);
   target = new Vehicle(random(width), random(height));
   angle = 0;
@@ -14,7 +18,8 @@ function setup() {
 }
 
 function draw() {
-    createCanvas(windowWidth, 400);
+  createCanvas(windowWidth, 400);
+  flowField = new FlowField(10);
   background(200,200);
 
 //   pursuer.update();
@@ -65,9 +70,13 @@ function draw() {
   // target.applyForce(
   // target.seek(createVector(target.location.x+x, target.location.y+y)));  
   // target.display();
-  
-  target.update();
-  target.follow(flowField);  
-  target.display();
   flowField.display();
+  followers.forEach(follow=>{
+    follow.update();
+    follow.follow(flowField);
+    follow.display();
+  });
+  // target.update();
+  // target.follow(flowField);  
+  // target.display();
 }
