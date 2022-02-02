@@ -4,15 +4,15 @@ class Vehicle{
       r:random(255),
       g:random(255),
       b:random(255),
-      size:5,//random(16),
+      size:15,//random(16),
       speed:random(10),
       force:random(1)
     }
-    this.location=createVector(0,0);
+    this.location=createVector(random(width),random(height));
     this.velocity=createVector(0,0);
     this.acceleration=createVector(x,y);
     this.r=this.traits.size; //Additional variable for size
-    this.maxspeed=6//this.traits.speed;
+    this.maxspeed=10//this.traits.speed;
     this.maxforce=0.4//this.traits.force;
     this.mass=this.traits.size;
     
