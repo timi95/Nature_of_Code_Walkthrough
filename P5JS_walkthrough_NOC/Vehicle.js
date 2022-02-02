@@ -8,7 +8,7 @@ class Vehicle{
       speed:random(10),
       force:random(1)
     }
-    this.location=createVector(random(width),random(height));
+    this.location=createVector(x,y);
     this.velocity=createVector(0,0);
     this.acceleration=createVector(x,y);
     this.r=this.traits.size; //Additional variable for size
