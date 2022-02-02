@@ -20,8 +20,8 @@ class FlowField{
         this.field[i][j] = p5.Vector.fromAngle(theta);
         this.colours[i][j] = {
           r:random(255),
-          g:random(255),
-          b:random(255)};
+          g:random(195),
+          b:random(195)};
         yoff += 0.1;
       }
       xoff += 0.1;
