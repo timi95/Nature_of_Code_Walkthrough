@@ -79,6 +79,25 @@ class Vehicle{
     this.applyForce(steer);
   }
   
+  //WIP
+  followPath(/*Path*/ p) {
+    let predict = this.velocity.get();
+    let a = p.start;
+    let b = p.end;
+    let normalPoint = getNormalPoint(predictLoc, a, b);
+    
+    let dir = p5.Vector.sub(b, a);
+    dir.normalize();
+    dir.mult(10);
+    let target = PVector.add(normalPoint, dir);
+    
+    let distance =
+    p5.Vector.dist(normalPoint, predictLoc);
+    if (distance > p.radius) {
+      seek(target);
+    }
+  }
+  
   wander(){
     // let xoff =1000;
     // let angle = noise(xoff) * TWO_PI * 2;
