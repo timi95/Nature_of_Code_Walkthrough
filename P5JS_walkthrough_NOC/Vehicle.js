@@ -84,18 +84,28 @@ class Vehicle{
     let predict = this.velocity.get();
     let a = p.start;
     let b = p.end;
-    let normalPoint = getNormalPoint(predictLoc, a, b);
+    let normalPoint = this.getNormalPoint(predictLoc, a, b);
     
     let dir = p5.Vector.sub(b, a);
     dir.normalize();
     dir.mult(10);
-    let target = PVector.add(normalPoint, dir);
+    let target = p5.Vector.add(normalPoint, dir);
     
     let distance =
     p5.Vector.dist(normalPoint, predictLoc);
     if (distance > p.radius) {
       seek(target);
     }
+  }
+  
+  getNormalPoint(/*PVector*/ p, /*PVector*/ a, /*PVector*/ b) {
+    let ap = p5.Vector.sub(p, a); 
+    let ab = p5.Vector.sub(b, a);
+    ab.normalize();
+    ab.mult(ap.dot(ab));
+
+    let normalPoint = p5.Vector.add(a, ab);
+    return normalPoint;
   }
   
   wander(){
