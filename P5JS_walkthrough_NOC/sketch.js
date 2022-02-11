@@ -3,18 +3,22 @@ let xoff;
 let followers=[]
 
 function mousePressed(){
-  followers.push( new Vehicle(mouseX, mouseY))
+  // if(ceil(random(3))==2)
+  path.addPoint(mouseX, mouseY);
 }
 function setup() { 
   createCanvas(windowWidth, 400);
   pursuer = new Vehicle(width/2, height/2);
   target = new Vehicle(random(width), random(height));
+  path = new Path();
   angle = 0;
   xoff=0;
-  
   createCanvas(windowWidth, 400);
   background(200,200);
   
+  for(let i=0; i<3; i++)
+  followers.push( new Vehicle( random(width), random(height)));
+    
 }
 
 function draw() {
@@ -70,10 +74,12 @@ function draw() {
   // target.applyForce(
   // target.seek(createVector(target.location.x+x, target.location.y+y)));  
   // target.display();
-  flowField.display();
+  // flowField.display();
+  path.display();
   followers.forEach(follow=>{
     follow.update();
-    follow.follow(flowField);
+    follow.followPath(path);
+    // follow.follow(flowField);
     follow.display();
   });
   // target.update();
