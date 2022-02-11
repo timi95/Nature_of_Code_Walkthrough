@@ -81,21 +81,27 @@ class Vehicle{
   
   //WIP
   followPath(/*Path*/ p) {
-    let predict = this.velocity.get();
-    let a = p.start;
-    let b = p.end;
-    let normalPoint = this.getNormalPoint(predictLoc, a, b);
+    let predict = this.velocity.copy();
+    predict.normalize();
+    predict.mult(25);
+    let predictLoc = p5.Vector.add(this.location, predict);
     
-    let dir = p5.Vector.sub(b, a);
-    dir.normalize();
-    dir.mult(10);
-    let target = p5.Vector.add(normalPoint, dir);
-    
-    let distance =
-    p5.Vector.dist(normalPoint, predictLoc);
-    if (distance > p.radius) {
-      seek(target);
+    let worldRecord = 1000000;
+    for (let i = 0; i < p.points.length-1; i++){
+      let a = p.points[i];
+      let b = p.points[i+1];
+      let normalPoint = this.getNormalPoint(predictLoc, a, b);
+      if (normalPoint.x < a.x || normalPoint.x > b.x) {
+        normalPoint = b;
+      }
+      
+      let distance = dist(predictLoc.x,predictLoc.y, normalPoint.x, normalPoint.y);
+      if (distance < worldRecord) {
+        worldRecord = distance;
+        let target = normalPoint;
+      }
     }
+
   }
   
   getNormalPoint(/*PVector*/ p, /*PVector*/ a, /*PVector*/ b) {
