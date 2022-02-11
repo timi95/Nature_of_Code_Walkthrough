@@ -3,14 +3,24 @@ class Path{
     this.radius = 20;
     this.start = createVector(0,height/3);
     this.end = createVector(width,2*height/3);
+    this.points=[]
+  }
+  
+  addPoint(x, y) {
+    let point = createVector(x,y);
+    this.points.push(point);
+    // console.log(this.points)
   }
   
   display() { // Display the path.
-    strokeWeight(this.radius*2);
-    stroke(0,100);
-    line(this.start.x, this.start.y, this.end.x, this.end.y);
-    strokeWeight(1);
     stroke(0);
-    line(this.start.x, this.start.y, this.end.x, this.end.y);
+    strokeWeight(7);
+    noFill();
+    beginShape();
+    this.points.forEach(v=>{
+      vertex(v.x,v.y);
+      // point(v.x,v.y);
+    });
+    endShape(CLOSE);
   }
 }
