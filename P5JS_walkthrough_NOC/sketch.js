@@ -80,7 +80,7 @@ function draw() {
     follow.update();
     follow.followPath(path);
     // follow.follow(flowField);
-    follow.display();
+    // follow.display();
   });
   // target.update();
   // target.follow(flowField);  

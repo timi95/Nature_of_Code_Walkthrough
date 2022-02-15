@@ -85,7 +85,6 @@ class Vehicle{
     predict.normalize();
     predict.mult(25);
     let predictLoc = p5.Vector.add(this.location, predict);
-    
     let worldRecord = 1000000;
     for (let i = 0; i < p.points.length-1; i++){
       let a = p.points[i];
@@ -95,12 +94,14 @@ class Vehicle{
         normalPoint = b;
       }
       
-      let distance = dist(predictLoc.x,predictLoc.y, normalPoint.x, normalPoint.y);
+      let distance = p5.Vector.dist(predictLoc, normalPoint);
+    console.log(`predictLoc: `, predictLoc,`normal: `,normalPoint);
       if (distance < worldRecord) {
         worldRecord = distance;
         let target = normalPoint;
       }
     }
+    this.applyForce(target);
 
   }
   
