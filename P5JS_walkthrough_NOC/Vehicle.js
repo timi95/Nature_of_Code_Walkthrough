@@ -24,6 +24,7 @@ class Vehicle{
     this.location.add(this.velocity);
     this.acceleration.set(0,0);
     this.wrap();
+    
     // if(this.maxspeed <5
     //   ||this.velocity.mag() <5){ this.wrap() }
     // else{ this.edgeGuard() }
@@ -58,7 +59,7 @@ class Vehicle{
     if (this.location.x < -this.r) this.location.x = width+this.r;
     if (this.location.y < -this.r) this.location.y = height+this.r;
     if (this.location.x > width+this.r) this.location.x = -this.r;
-    if (this.location.y > height+this.r) this.location.y = -this.r;
+    if (this.location.y > height+this.r) this.location.y = -this.r;  
     }
   
   applyForce(force){
@@ -84,7 +85,7 @@ class Vehicle{
     let predict = this.velocity.copy();
     predict.normalize();
     predict.mult(25);
-    let predictLoc = p5.Vector.add(this.location, predict);
+    let predictLoc = p5.Vector.random2D()//.add(this.location, predict);
     let worldRecord = 1000000;
     for (let i = 0; i < p.points.length-1; i++){
       let a = p.points[i];
@@ -95,13 +96,14 @@ class Vehicle{
       }
       
       let distance = p5.Vector.dist(predictLoc, normalPoint);
-    console.log(`predictLoc: `, predictLoc,`normal: `,normalPoint);
       if (distance < worldRecord) {
         worldRecord = distance;
         let target = normalPoint;
+        console.log(`target: `, target);
       }
     }
-    this.applyForce(target);
+    // console.log(`location: `, this.location, `target`, target);
+    // this.applyForce(target);
 
   }
   
