@@ -8,8 +8,8 @@ function mousePressed(){
 }
 function setup() { 
   createCanvas(windowWidth, 400);
-  pursuer = new Vehicle(width/2, height/2);
-  target = new Vehicle(random(width), random(height));
+  // pursuer = new Vehicle(width/2, height/2);
+  // target = new Vehicle(random(width), random(height));
   path = new Path();
   angle = 0;
   xoff=0;
@@ -80,7 +80,7 @@ function draw() {
     follow.update();
     follow.followPath(path);
     // follow.follow(flowField);
-    // follow.display();
+    follow.display();
   });
   // target.update();
   // target.follow(flowField);  

@@ -83,27 +83,38 @@ class Vehicle{
   //WIP
   followPath(/*Path*/ p) {
     let predict = this.velocity.copy();
-    predict.normalize();
-    predict.mult(25);
-    let predictLoc = p5.Vector.random2D()//.add(this.location, predict);
+    predict.setMag(50);
+    let predictLoc = p5.Vector.add(this.location, predict);
+    
+    let target;
+    let normal;
+    
     let worldRecord = 1000000;
     for (let i = 0; i < p.points.length-1; i++){
       let a = p.points[i];
       let b = p.points[i+1];
       let normalPoint = this.getNormalPoint(predictLoc, a, b);
       if (normalPoint.x < a.x || normalPoint.x > b.x) {
-        normalPoint = b;
+        normalPoint = b.copy();
       }
       
       let distance = p5.Vector.dist(predictLoc, normalPoint);
       if (distance < worldRecord) {
         worldRecord = distance;
-        let target = normalPoint;
-        console.log(`target: `, target);
+        normal = normalPoint;
+
+        let dir = p5.Vector.sub(b, a);
+        dir.normalize();
+        dir.mult(10);
+        
+        target = normalPoint.copy();
+        target.add(dir);
       }
     }
-    // console.log(`location: `, this.location, `target`, target);
-    // this.applyForce(target);
+    
+    if (worldRecord > p.radius) {
+      this.seek(target);
+    }
 
   }
   
