@@ -13,6 +13,17 @@ class Path{
   }
   
   display() { // Display the path.
+    
+        // Draw thick line for radius
+    stroke(175);
+    strokeWeight(this.radius*2);
+    noFill();
+    beginShape();
+    this.points.forEach(v=>{
+      vertex(v.x, v.y);
+    });
+    endShape();
+    
     stroke(0);
     strokeWeight(7);
     noFill();
@@ -21,6 +32,6 @@ class Path{
       vertex(v.x,v.y);
       // point(v.x,v.y);
     });
-    endShape(CLOSE);
+    endShape();
   }
 }
