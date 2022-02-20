@@ -78,7 +78,7 @@ function draw() {
   path.display();
   followers.forEach(follow=>{
     follow.update();
-    follow.followPath(path);
+    follow.followPath(path, true);
     // follow.follow(flowField);
     follow.display();
   });

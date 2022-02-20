@@ -81,15 +81,16 @@ class Vehicle{
   }
   
   //WIP
-  followPath(/*Path*/ p) {
+  followPath(/*Path*/ p, debug = false) {
     let predict = this.velocity.copy();
-    predict.setMag(50);
+    predict.normalize();
+    predict.mult(50);
     let predictLoc = p5.Vector.add(this.location, predict);
     
-    let target;
-    let normal;
-    
+    let target=createVector();
+    let normal=createVector();
     let worldRecord = 1000000;
+    
     for (let i = 0; i < p.points.length-1; i++){
       let a = p.points[i];
       let b = p.points[i+1];
@@ -116,6 +117,25 @@ class Vehicle{
       this.seek(target);
     }
 
+    
+     // Draw the debugging stuff
+    if (debug) {
+      // Draw predicted future position
+      stroke(0);
+      fill(0);
+      line(this.location.x, this.location.y, predictLoc.x, predictLoc.y);
+      ellipse(predictLoc.x, predictLoc.y, 4, 4);
+
+      // Draw normal position
+      stroke(0);
+      fill(0);
+      ellipse(normal.x, normal.y, 4, 4);
+      // Draw actual target (red if steering towards it)
+      line(predictLoc.x, predictLoc.y, normal.x, normal.y);
+      if (worldRecord > p.radius) fill(255, 0, 0);
+      noStroke();
+      ellipse(target.x, target.y, 8, 8);
+    }
   }
   
   getNormalPoint(/*PVector*/ p, /*PVector*/ a, /*PVector*/ b) {
@@ -123,6 +143,7 @@ class Vehicle{
     let ab = p5.Vector.sub(b, a);
     ab.normalize();
     ab.mult(ap.dot(ab));
+    // ab.mult(p5.Vector.dot(ap, ab));
 
     let normalPoint = p5.Vector.add(a, ab);
     return normalPoint;
