@@ -17,7 +17,7 @@ function setup() {
   background(200,200);
   
   for(let i=0; i<3; i++)
-  followers.push( new Vehicle( random(width), random(height)));
+  followers.push(new Vehicle(1, 1));
     
 }
 
@@ -76,11 +76,13 @@ function draw() {
   // target.display();
   // flowField.display();
   path.display();
-  followers.forEach(follow=>{
-    follow.update();
-    follow.followPath(path, true);
-    // follow.follow(flowField);
-    follow.display();
+  followers.forEach(follower=>{
+    follower.update();
+    // follower.applyForce(
+    // follower.seek( createVector(mouseX,mouseY)));
+    follower.followPath(path, true);
+    follower.follow(flowField);
+    follower.display();
   });
   // target.update();
   // target.follow(flowField);  

@@ -8,7 +8,7 @@ class Vehicle{
       speed:random(10),
       force:random(1)
     }
-    this.location=createVector(x,y);
+    this.location=createVector(random(width),random(height));
     this.velocity=createVector(0,0);
     this.acceleration=createVector(x,y);
     this.r=this.traits.size; //Additional variable for size
@@ -92,8 +92,8 @@ class Vehicle{
     let worldRecord = 1000000;
     
     for (let i = 0; i < p.points.length-1; i++){
-      let a = p.points[i];
-      let b = p.points[i+1];
+      let a = p.points[i].copy();
+      let b = p.points[i+1].copy();
       let normalPoint = this.getNormalPoint(predictLoc, a, b);
       if (normalPoint.x < a.x || normalPoint.x > b.x) {
         normalPoint = b.copy();
@@ -114,7 +114,7 @@ class Vehicle{
     }
     
     if (worldRecord > p.radius) {
-      this.seek(target);
+      this.applyForce(this.seek(target));
     }
 
     
@@ -127,13 +127,13 @@ class Vehicle{
       ellipse(predictLoc.x, predictLoc.y, 4, 4);
 
       // Draw normal position
-      stroke(0);
+      stroke(0,155,50);
       fill(0);
       ellipse(normal.x, normal.y, 4, 4);
       // Draw actual target (red if steering towards it)
       line(predictLoc.x, predictLoc.y, normal.x, normal.y);
       if (worldRecord > p.radius) fill(255, 0, 0);
-      noStroke();
+      stroke(250,0,175);
       ellipse(target.x, target.y, 8, 8);
     }
   }
