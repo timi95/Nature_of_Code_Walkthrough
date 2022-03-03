@@ -15,7 +15,7 @@ class Vehicle{
     this.maxspeed=10//this.traits.speed;
     this.maxforce=0.4//this.traits.force;
     this.mass=this.traits.size;
-    
+    this.lifespan = random(50,300);
   }
   
   update(){
@@ -24,7 +24,7 @@ class Vehicle{
     this.location.add(this.velocity);
     this.acceleration.set(0,0);
     this.wrap();
-    
+    this.lifespan -= 1.0;
     // if(this.maxspeed <5
     //   ||this.velocity.mag() <5){ this.wrap() }
     // else{ this.edgeGuard() }
@@ -80,7 +80,7 @@ class Vehicle{
     this.applyForce(steer);
   }
   
-  //WIP
+
   followPath(/*Path*/ p, debug = false) {
     let predict = this.velocity.copy();
     predict.normalize();
@@ -170,6 +170,7 @@ class Vehicle{
     return this.seek(target).mult(-1);
   }
   
+  
   pursue(vehicle){
     let target = vehicle.location.copy();
     let prediction = vehicle.velocity.copy().mult(10);
@@ -192,6 +193,16 @@ class Vehicle{
     force.limit(this.maxforce);
     return force;
   }
+  
+    isDead() {
+    if (this.lifespan < 0.0) { 
+      //Is the particle still alive?
+      return true;
+    } else {
+      return false;
+    }
+  }
+  
   
   display(){
     let theta = this.velocity.heading() + PI/2;
