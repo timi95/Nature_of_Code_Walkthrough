@@ -13,7 +13,6 @@ class VehicleSystem {
   }
   
   separate(vehicles){
-    
     let sum = createVector();
     let count = 0;
     for(let i=0; i < this.vehicles.length; i++){
@@ -46,6 +45,47 @@ class VehicleSystem {
             this.vehicles[i].applyForce(steer);
             // this.vehicles[i].applyForce(
             //   this.vehicles[i].evade(this.vehicles[j]));
+          }
+        
+      }
+      
+    }
+    
+  }
+  
+  congregate(vehicles){
+    let sum = createVector();
+    let count = 0;
+    for(let i=0; i < this.vehicles.length; i++){
+      let desiredSeparation =  width/2;
+      for(let j=0; j < this.vehicles.length; j++){
+        
+          let d = p5.Vector.dist(
+            this.vehicles[i].location, 
+            this.vehicles[j].location);
+        
+        
+          if ((d > 0) && (d > desiredSeparation)) {
+            let diff = p5.Vector.sub(
+              this.vehicles[i].location, 
+              this.vehicles[j].location);
+            
+            diff.normalize();
+            diff.div(d);
+            sum.add(diff);
+            count++;
+          }
+        
+          if(count > 0){
+//             sum.div(count);
+//             sum.normalize();
+//             sum.mult(this.vehicles[j].maxspeed);
+            
+//             let steer = p5.Vector.sub(sum, this.vehicles[i].velocity);
+//             steer.limit(this.vehicles[i].maxforce);
+//             this.vehicles[i].applyForce(steer);
+            this.vehicles[i].applyForce(
+              this.vehicles[i].pursue(this.vehicles[j]));
           }
         
       }
