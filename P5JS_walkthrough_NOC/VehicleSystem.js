@@ -15,8 +15,8 @@ class VehicleSystem {
   separate(vehicles){
     let sum = createVector();
     let count = 0;
+    let desiredSeparation =  50//this.vehicles[i].r*2;
     for(let i=0; i < this.vehicles.length; i++){
-      let desiredSeparation =  this.vehicles[i].r*2;
       for(let j=0; j < this.vehicles.length; j++){
         
           let d = p5.Vector.dist(
@@ -36,15 +36,15 @@ class VehicleSystem {
           }
         
           if(count > 0){
-            sum.div(count);
-            sum.normalize();
-            sum.mult(this.vehicles[j].maxspeed);
+//             sum.div(count);
+//             sum.normalize();
+//             sum.mult(this.vehicles[j].maxspeed);
             
-            let steer = p5.Vector.sub(sum, this.vehicles[i].velocity);
-            steer.limit(this.vehicles[i].maxforce);
-            this.vehicles[i].applyForce(steer);
-            // this.vehicles[i].applyForce(
-            //   this.vehicles[i].evade(this.vehicles[j]));
+//             let steer = p5.Vector.sub(sum, this.vehicles[i].velocity);
+//             steer.limit(this.vehicles[i].maxforce);
+//             this.vehicles[i].applyForce(steer);
+            this.vehicles[i].applyForce(
+              this.vehicles[i].evade(this.vehicles[j]));
           }
         
       }
@@ -96,6 +96,8 @@ class VehicleSystem {
   
   update(){
     this.vehicles.forEach(v=>{
+      v.applyForce( 
+      v.seek(createVector(mouseX, mouseY), true));
       v.update();
     });      
 
@@ -107,8 +109,6 @@ class VehicleSystem {
   
   display(){
     this.vehicles.forEach(v=>{
-      this.separate(this.vehicles);
-      v.update();
       v.display();
     });    
   }
