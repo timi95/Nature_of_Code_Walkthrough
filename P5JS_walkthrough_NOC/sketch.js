@@ -12,9 +12,9 @@ function setup() {
 function draw() {
   createCanvas(windowWidth, 400);
   
-    vehicleSystems.forEach(v=>{  
-
-    v.update();
-    v.display();
+    vehicleSystems.forEach(vs=>{  
+    vs.separate(vs.vehicles);
+    vs.update();
+    vs.display();
   });
 }
