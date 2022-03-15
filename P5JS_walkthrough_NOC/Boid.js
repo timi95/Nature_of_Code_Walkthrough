@@ -7,19 +7,19 @@ class Boid extends Vehicle {
   separate(boids){
     let sum = createVector();
     let count = 0;
-    let desiredSeparation =  50//this.boids[i].r*2;
-    for(let i=0; i < this.boids.length; i++){
-      for(let j=0; j < this.boids.length; j++){
+    let desiredSeparation =  100//this.boids[i].r*2;
+    for(let i=0; i < boids.length; i++){
+      for(let j=0; j < boids.length; j++){
         
           let d = p5.Vector.dist(
-            this.boids[i].location, 
-            this.boids[j].location);
+            boids[i].location, 
+            boids[j].location);
         
         
           if ((d > 0) && (d < desiredSeparation)) {
             let diff = p5.Vector.sub(
-              this.boids[i].location, 
-              this.boids[j].location);
+              boids[i].location, 
+              boids[j].location);
             
             diff.normalize();
             diff.div(d);
@@ -30,14 +30,16 @@ class Boid extends Vehicle {
           if(count > 0){
             sum.div(count);
             sum.normalize();
-            sum.mult(this.boids[j].maxspeed);
+            sum.mult(boids[j].maxspeed);
             
-            let steer = p5.Vector.sub(sum, this.boids[i].velocity);
-            steer.limit(this.boids[i].maxforce);
+            let steer = p5.Vector.sub(sum, boids[i].velocity);
+            steer.limit(boids[i].maxforce);
 //             this.boids[i].applyForce(steer);
             // this.boids[i].applyForce();
             // this.boids[i].evade();
             return steer;
+          } else {
+            return createVector(0,0);
           }
         
       }
@@ -61,7 +63,7 @@ class Boid extends Vehicle {
     let neighbordist = 50;
     let count = 0;
     boids.forEach( other =>{
-      let d = PVector.dist(this.location,other.location);
+      let d = p5.Vector.dist(this.location,other.location);
       if ((d > 0) && (d < neighbordist)) {
       sum.add(other.velocity);
         count++; /*For an average, we need to keep track of
@@ -90,7 +92,7 @@ how many boids are within the distance.*/
     let neighbordist = 50;
     let count = 0;
     boids.forEach( other =>{
-      let d = PVector.dist(this.location,other.location);
+      let d = p5.Vector.dist(this.location,other.location);
       if ((d > 0) && (d < neighbordist)) {
       sum.add(other.location);
         count++; /*For an average, we need to keep track of
@@ -107,9 +109,9 @@ how many boids are within the distance.*/
   }
   
   flock(boids){
-    let sep = separate(boids); //The three flocking rules
-    let ali = align(boids);
-    let coh = cohere(boids);
+    let sep = this.separate(boids); //The three flocking rules
+    let ali = this.align(boids);
+    let coh = this.cohere(boids);
     // Arbitrary weights for these forces (Try
     // different ones!)
     sep.mult(1.5);
