@@ -7,7 +7,7 @@ class Boid extends Vehicle {
   separate(boids){
     let sum = createVector();
     let count = 0;
-    let desiredSeparation =  100//this.boids[i].r*2;
+    let desiredSeparation = this.r*2;
     for(let i=0; i < boids.length; i++){
       for(let j=0; j < boids.length; j++){
         
@@ -28,16 +28,13 @@ class Boid extends Vehicle {
           }
         
           if(count > 0){
-            sum.div(count);
-            sum.normalize();
-            sum.mult(boids[j].maxspeed);
-            
-            let steer = p5.Vector.sub(sum, boids[i].velocity);
-            steer.limit(boids[i].maxforce);
-//             this.boids[i].applyForce(steer);
-            // this.boids[i].applyForce();
-            // this.boids[i].evade();
-            return steer;
+            // sum.div(count);
+            // sum.normalize();
+            // sum.mult(boids[j].maxspeed);
+            // let steer = p5.Vector.sub(sum, boids[i].velocity);
+            // steer.limit(boids[i].maxforce);
+            // return steer;
+            return boids[i].evade(boids[j]);
           } else {
             return createVector(0,0);
           }
@@ -60,7 +57,7 @@ class Boid extends Vehicle {
   
   align(boids){
     let sum = new createVector(0,0);
-    let neighbordist = 50;
+    let neighbordist = 100;
     let count = 0;
     boids.forEach( other =>{
       let d = p5.Vector.dist(this.location,other.location);
