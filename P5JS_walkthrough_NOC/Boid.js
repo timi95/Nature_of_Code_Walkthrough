@@ -44,17 +44,7 @@ class Boid extends Vehicle {
     }
     
   }
-  
-  /*
-      for(let i=0; i < boids.length;i++){
-      for(let j=0; j<boids.length;j++){
-        let d = p5.Vector.dist(boids[i], boids[j]);
-        if(d < 30){
-          sum.add(boids[i].velocity);
-        }
-      }
-    }*/
-  
+    
   align(boids){
     let sum = new createVector(0,0);
     let neighbordist = 100;
