@@ -16,18 +16,27 @@ class CA {
   
   generate() {
     let nextgen = new Array(this.cells.length);
-    for (let i = 1; i < cells.length-1; i++) {
-      let left = cells[i-1];
-      let me = cells[i];
-      let right = cells[i+1];
-      nextgen[i] = rules(left, me, right);
+    for (let i = 1; i < this.cells.length-1; i++) {
+      let left = this.cells[i-1];
+      let me = this.cells[i];
+      let right = this.cells[i+1];
+      nextgen[i] = this.rules(left, me, right);
     }
-    cells = nextgen;
+    this.cells = nextgen;
   }
   
   rules(a, b, c){
     let s = "" + a + b + c;
     let index = parseInt(s,2);
     return this.ruleset[index];
+  }
+  
+  display(){
+    for (let i = 0; i < this.cells.length; i++) { 
+      if (this.cells[i] == 0) fill(255);
+      else fill(0); 
+      stroke(0);
+      rect(i*50,0,50,50);
+    }
   }
 }
