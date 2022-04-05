@@ -1,16 +1,17 @@
 class CA {
   
   constructor(){
-    this.cells = [1,0,1,0,0,0,0,1,0,1,1,1,0,0,0,1,1,1,0,0];
+    this.generation=0;
+    this.w=5;
+    this.cells = new Array(2000/this.w);
     this.newcells = new Array(this.cells.length);
-
-    this.ruleset = [0,1,1,1,1,0,1,1];
+    this.ruleset = [0,1,0,1,1,0,1,0];
     
     for (let i = 0; i < this.cells.length; i++) {
       this.cells[i] = 0;
     }
+    this.cells[this.cells.length/2] = 1;
 
-      this.cells[this.cells.length/2] = 1;
   }
   
   
@@ -23,6 +24,7 @@ class CA {
       nextgen[i] = this.rules(left, me, right);
     }
     this.cells = nextgen;
+    this.generation++;
   }
   
   rules(a, b, c){
@@ -36,7 +38,8 @@ class CA {
       if (this.cells[i] == 0) fill(255);
       else fill(0); 
       stroke(0);
-      rect(i*50,0,50,50);
+      rect(i*this.w, this.generation*this.w, 
+           this.w,this.w);
     }
   }
 }
