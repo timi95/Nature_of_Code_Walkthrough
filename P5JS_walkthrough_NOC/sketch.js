@@ -4,7 +4,7 @@
 // let ruleset = [0,1,1,1,1,0,1,1];
 let cA;
 function setup() {
-  createCanvas(windowWidth, 400);
+  createCanvas(windowWidth, windowHeight);
   
   cA = new CA();
 }
@@ -16,11 +16,13 @@ function rules(a, b, c){
 }
 
 function draw() {
-  createCanvas(windowWidth, 400);
-  background(150);
+  // createCanvas(windowWidth, 400);
+  // background(150);
   
   cA.generate();
   cA.display();
+
+  
 //   for (let i = 1; i < cells.length-1; i++) { //Loop through every cell.
 //     let left = cells[i-1]; //Look at the states from the current array.
 //     let middle = cells[i];
