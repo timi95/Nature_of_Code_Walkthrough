@@ -1,11 +1,10 @@
 class CA {
-  
-  constructor(){
+  constructor(ca_width){
     this.generation=0;
     this.w=5;
-    this.cells = new Array(2000/this.w);
+    this.cells = new Array(1050/this.w).fill(0);
     this.newcells = new Array(this.cells.length);
-    this.ruleset = [0,1,0,1,1,0,1,0];
+    this.ruleset = [0,1,0,1,1,0,1,0];// [1,1,0,1,1,1,1,0]//
     
     for (let i = 0; i < this.cells.length; i++) {
       this.cells[i] = 0;
@@ -16,7 +15,7 @@ class CA {
   
   
   generate() {
-    let nextgen = new Array(this.cells.length);
+    let nextgen = new Array(this.cells.length).fill(0);
     for (let i = 1; i < this.cells.length-1; i++) {
       let left = this.cells[i-1];
       let me = this.cells[i];
@@ -35,7 +34,8 @@ class CA {
   
   display(){
     for (let i = 0; i < this.cells.length; i++) { 
-      if (this.cells[i] == 0) fill(255);
+      if (this.cells[i] == 0) 
+        fill(255);
       else fill(0); 
       stroke(0);
       rect(i*this.w, this.generation*this.w, 
