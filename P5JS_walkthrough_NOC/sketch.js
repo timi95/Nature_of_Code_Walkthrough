@@ -6,16 +6,15 @@ let cA;
 function setup() {
   createCanvas(windowWidth, windowHeight);
   
-  cA = new CA(1000);
+  ca = new CA(1000);
 }
 
 
 function draw() {
   // createCanvas(windowWidth, 400);
   // background(150);
-  
-  cA.display();
-  cA.generate();
+  ca.display();
+  ca.generate();
 
   
 }
