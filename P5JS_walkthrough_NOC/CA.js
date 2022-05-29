@@ -15,6 +15,11 @@ class CA {
       random([0,1]),
       random([0,1]),
     ]
+    this.color = {
+      r:random(255),
+      g:random(255),
+      b:random(255)
+    }
     
     for (let i = 0; i < this.cells.length; i++) {
       this.cells[i] = 0;
@@ -51,13 +56,13 @@ class CA {
   display(){
     for (let i = 0; i < this.cells.length; i++) { 
       if (this.cells[i] == 0) 
-        fill(255);
+        fill(this.color.r+i, this.color.g+i, this.color.b+i);
       else fill(0); 
       stroke(0);
       rect(i*this.w, this.generation*this.w, 
            this.w,this.w);
     }
-    if(this.generation>(105)){
+    if(this.generation>(150)){
       this.generation = 0;
       this.randRuleSet = [
         random([0,1]),
@@ -69,7 +74,11 @@ class CA {
         random([0,1]),
         random([0,1]),
       ]
-
+      this.color = {
+      r:random(255),
+      g:random(255),
+      b:random(255)
+    }
       
     }
   }
