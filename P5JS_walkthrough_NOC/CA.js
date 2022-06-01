@@ -56,7 +56,7 @@ class CA {
   display(){
     for (let i = 0; i < this.cells.length; i++) { 
       if (this.cells[i] == 0) 
-        fill(this.color.r+i, this.color.g+i, this.color.b+i);
+        fill(this.color.r+random(i), this.color.g+random(i), this.color.b+random(i));
       else fill(0); 
       stroke(0);
       rect(i*this.w, this.generation*this.w, 
