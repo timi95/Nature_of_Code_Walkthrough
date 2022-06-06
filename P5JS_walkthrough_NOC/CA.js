@@ -5,6 +5,13 @@ class CA {
     this.cells = new Array(1050/this.w).fill(0);
     this.newcells = new Array(this.cells.length);
     this.ruleset = [0,1,0,1,1,0,1,0];// [1,1,0,1,1,1,1,0]//
+    
+    this.ALLRULES = []
+    for(let i=0; i<256;i++){
+      this.ALLRULES.push(
+        Array.from(String(this.dec2bin(i)),toNum=>Number(toNum))
+      );
+    } console.log(this.ALLRULES)
     this.randRuleSet = [
       random([0,1]),
       random([0,1]),
@@ -28,6 +35,9 @@ class CA {
 
   }
   
+  dec2bin(dec){
+    return (dec >>> 0).toString(2);
+  }
   
   generate() {
     let nextgen = new Array(this.cells.length).fill(0);
@@ -56,7 +66,9 @@ class CA {
   display(){
     for (let i = 0; i < this.cells.length; i++) { 
       if (this.cells[i] == 0) 
-        fill(this.color.r+random(i), this.color.g+random(i), this.color.b+random(i));
+        fill(this.color.r+noise(i), 
+             this.color.g+noise(i+500), 
+             this.color.b+noise(i+1000));
       else fill(0); 
       stroke(0);
       rect(i*this.w, this.generation*this.w, 
