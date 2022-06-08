@@ -6,12 +6,24 @@ class CA {
     this.newcells = new Array(this.cells.length);
     this.ruleset = [0,1,0,1,1,0,1,0];// [1,1,0,1,1,1,1,0]//
     
-    this.ALLRULES = []
+    this.ALLRULES = [];
+    this.ruleCount = 0;
     for(let i=0; i<256;i++){
-      this.ALLRULES.push(
-        Array.from(String(this.dec2bin(i)),toNum=>Number(toNum))
-      );
-    } console.log(this.ALLRULES)
+      this.ALLRULES
+        .push(
+          Array.from(
+                String(this.dec2bin(i)),
+                toNum=>Number(toNum)));
+    }//rules from 0 to 256 populated in ALLRULES
+    setInterval(()=>{
+      console.log(this.ruleset)
+      if(this.ruleCount > 255)
+        this.ruleCount = 0; else
+        this.ruleset = this.ALLRULES[this.ruleCount++]
+    },3000)
+    // setInterval(this.nextRule,3000)
+    
+    
     this.randRuleSet = [
       random([0,1]),
       random([0,1]),
@@ -45,7 +57,7 @@ class CA {
       let left = this.cells[i-1];
       let me = this.cells[i];
       let right = this.cells[i+1];
-      nextgen[i] = this.randomRules(left, me, right);
+      nextgen[i] = this.rules(left, me, right);
     }
     this.cells = nextgen;
     this.generation++;
@@ -63,6 +75,12 @@ class CA {
     return this.randRuleSet[index];
   }
   
+  nextRule(){
+    this.ruleCount = 
+      this.ruleCount > 256?0:this.ruleCount++;
+    return this.ALLRULES[this.ruleCount];
+  }
+  
   display(){
     for (let i = 0; i < this.cells.length; i++) { 
       if (this.cells[i] == 0) 
@@ -76,16 +94,16 @@ class CA {
     }
     if(this.generation>(150)){
       this.generation = 0;
-      this.randRuleSet = [
-        random([0,1]),
-        random([0,1]),
-        random([0,1]),
-        random([0,1]),
-        random([0,1]),
-        random([0,1]),
-        random([0,1]),
-        random([0,1]),
-      ]
+      // this.randRuleSet = [
+      //   random([0,1]),
+      //   random([0,1]),
+      //   random([0,1]),
+      //   random([0,1]),
+      //   random([0,1]),
+      //   random([0,1]),
+      //   random([0,1]),
+      //   random([0,1]),
+      // ]
       this.color = {
       r:random(255),
       g:random(255),
