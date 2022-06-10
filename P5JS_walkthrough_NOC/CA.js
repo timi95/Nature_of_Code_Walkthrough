@@ -4,7 +4,8 @@ class CA {
     this.w=5;
     this.cells = new Array(1050/this.w).fill(0);
     this.newcells = new Array(this.cells.length);
-    this.ruleset = [0,1,0,1,1,0,1,0];// [1,1,0,1,1,1,1,0]//
+    this.ruleset = [0,0,0,0,0,0,0,0]
+      //[0,1,0,1,1,0,1,0];// [1,1,0,1,1,1,1,0]//
     
     this.ALLRULES = [];
     this.ruleCount = 0;
@@ -15,15 +16,7 @@ class CA {
                 String(this.dec2bin(i)),
                 toNum=>Number(toNum)));
     }//rules from 0 to 256 populated in ALLRULES
-    setInterval(()=>{
-      console.log(this.ruleset)
-      if(this.ruleCount > 255)
-        this.ruleCount = 0; else
-        this.ruleset = this.ALLRULES[this.ruleCount++]
-    },3000)
-    // setInterval(this.nextRule,3000)
-    
-    
+
     this.randRuleSet = [
       random([0,1]),
       random([0,1]),
@@ -92,24 +85,20 @@ class CA {
       rect(i*this.w, this.generation*this.w, 
            this.w,this.w);
     }
-    if(this.generation>(150)){
-      this.generation = 0;
-      // this.randRuleSet = [
-      //   random([0,1]),
-      //   random([0,1]),
-      //   random([0,1]),
-      //   random([0,1]),
-      //   random([0,1]),
-      //   random([0,1]),
-      //   random([0,1]),
-      //   random([0,1]),
-      // ]
-      this.color = {
-      r:random(255),
-      g:random(255),
-      b:random(255)
-    }
-      
-    }
+    
+    setInterval(()=>{
+      if(this.generation>(150)){
+        this.generation = 0;
+        this.color = {
+          r:random(255),
+          g:random(255),
+          b:random(255)
+        }
+        if(this.ruleCount > 255)
+          this.ruleCount = 0; else
+          this.ruleset = this.ALLRULES[this.ruleCount++]      
+      }
+    },3000)
+
   }
 }
