@@ -6,15 +6,19 @@ let cA;
 function setup() {
   createCanvas(windowWidth, windowHeight);
   
-  ca = new CA(1000);
+  ca = new CA(1000); 
+  
+  //Game of Life - 2D Array setup
+  
 }
 
 
 function draw() {
+  
   // createCanvas(windowWidth, 400);
   // background(150);
-  ca.display();
-  ca.generate();
+  // ca.display();
+  // ca.generate();
 
   
 }
