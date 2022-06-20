@@ -6,8 +6,8 @@ let cA;
 function setup() {
   createCanvas(windowWidth, windowHeight);
   
-  ca = new CA(1000); 
-  
+  // ca = new CA(1000); 
+  ca = new CATwoDim(1000); 
   //Game of Life - 2D Array setup
   
 }
