@@ -2,27 +2,22 @@ class CATwoDim {
   constructor(ca_width){
     this.generation=0;
     this.w=5;
+    this.cols=(ca_width/this.w);
+    this.rows=(ca_width/this.w);
     this.cells = Array
-      .from(Array(200/this.w), 
-            () => new Array(200/this.w).fill(0));
-    
-    //initialise 2D array
-    for (let x = 0; x < this.cells.length; x++) {
-      for (let y = 0; y < this.cells.length; y++) {
-        this.cells[x][y] = random([0,1]); 
-          //Initialize each cell with a 0 or 1.
-      }
-    } 
-  // console.log(this.cells);
+      .from(Array(this.cols), 
+            () => new Array(this.rows).fill(random([0,1])));
   }
   
     generate() {
-    let nextgen=this.cells;   
+    let nextgen=Array
+      .from(Array(this.cols), 
+            () => new Array(this.rows).fill(0));
     let neighbours=0;
     
     for (let x = 1; x < nextgen.length-1; x++) {
       for (let y = 1; y < nextgen.length-1; y++) {
-        neighbours = this.sumNeighbourState(x,y,nextgen);      
+        neighbours = this.sumNeighbourState(x,y,this.cells);      
         
          //rules of life!
         if ((this.cells[x][y] == 1) && (neighbours < 2)) 
@@ -43,8 +38,7 @@ class CATwoDim {
     let sum=0;
     for (let i = -1; i < 2; i++) {
       for (let j = -1; j < 2; j++) {
-        sum += board[x+i][y+j];
-        //Add up all the neighbours’ states.
+        sum += board[x + i][y + j];
       }
     }
     sum -= board[x][y];
@@ -52,8 +46,8 @@ class CATwoDim {
   }
   
   display(){
-    for ( let i = 0; i < this.cells.length;i++) {
-      for ( let j = 0; j < this.cells.length;j++) {
+    for (let i=0; i < this.cells.length;i++) {
+      for (let j=0; j < this.cells.length;j++) {
         if ((this.cells[i][j] == 1)) fill(255); //White when state = 1
         else fill(0); //Black when state = 0
         stroke(0);

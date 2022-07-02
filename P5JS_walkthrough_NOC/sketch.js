@@ -4,7 +4,7 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   
   // ca = new CA(1000); 
-  ca2 = new CATwoDim(1000); 
+  ca2 = new CATwoDim(500); 
   //Game of Life - 2D Array setup
   
 }
