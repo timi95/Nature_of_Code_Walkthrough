@@ -12,7 +12,7 @@ function setup() {
 
 function draw() {
   
-  createCanvas(windowWidth, 400);
+  // createCanvas(windowWidth, height);
   background(150);
   // ca.display();
   // ca.generate();
@@ -20,5 +20,8 @@ function draw() {
   ca2.display();
   ca2.generate();  
 
+  if (mouseIsPressed) {
+   ca2.lookup(createVector(mouseX,mouseY))
+  }
   
 }

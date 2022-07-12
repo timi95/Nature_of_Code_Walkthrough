@@ -7,12 +7,22 @@ class CATwoDim {
     this.cells = Array
       .from(Array(this.cols), 
             () => new Array(this.rows).fill(random([0,1])));
+    this.emptyGrid=Array
+      .from(Array(this.cols), 
+            () => new Array(this.rows).fill(0));
+  }
+  
+  
+  lookup(lookup) {
+    let column = floor(
+      constrain(lookup.x/this.w,0,this.cols-1));
+    let row = floor(
+      constrain(lookup.y/this.w,0,this.rows-1));
+    this.cells[column][row] = 1;
   }
   
     generate() {
-    let nextgen=Array
-      .from(Array(this.cols), 
-            () => new Array(this.rows).fill(0));
+    let nextgen=JSON.parse(JSON.stringify(this.emptyGrid));
     let neighbours=0;
     
     for (let x = 1; x < nextgen.length-1; x++) {
@@ -23,9 +33,11 @@ class CATwoDim {
         if ((this.cells[x][y] == 1) && (neighbours < 2)) 
         {nextgen[x][y] = 0;}
         else if ((this.cells[x][y] == 1) && (neighbours > 3))
-        {nextgen[x][y] = 0; }
+        {nextgen[x][y] = 0;}
         else if ((this.cells[x][y] == 0) && (neighbours == 3))
         {nextgen[x][y] = 1;}
+        // else if ((this.cells[x][y] == 0) && (neighbours == 0))
+        // {nextgen[x][y] = (random(100)%2==0)?1:0; }
         else 
         {nextgen[x][y] = this.cells[x][y];}
       }
@@ -36,8 +48,8 @@ class CATwoDim {
   
   sumNeighbourState(x,y, board){
     let sum=0;
-    for (let i = -1; i < 2; i++) {
-      for (let j = -1; j < 2; j++) {
+    for (let i=-1; i < 2; i++) {
+      for (let j=-1; j < 2; j++) {
         sum += board[x + i][y + j];
       }
     }
