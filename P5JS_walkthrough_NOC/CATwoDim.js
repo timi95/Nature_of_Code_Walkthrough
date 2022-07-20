@@ -4,12 +4,24 @@ class CATwoDim {
     this.w=5;
     this.cols=(ca_width/this.w);
     this.rows=(ca_width/this.w);
-    this.cells = Array
-      .from(Array(this.cols), 
-            () => new Array(this.rows).fill(random([0,1])));
+    this.cells = this.buildArray();
+      // Array
+      // .from(Array(this.cols), 
+      //       () => new Array(this.rows).fill(new Cell(x,y,this.w)));
     this.emptyGrid=Array
       .from(Array(this.cols), 
             () => new Array(this.rows).fill(0));
+  }
+  
+  buildArray(){
+    let cell_grid = [];
+    for(let i=0; i<this.rows;i++){
+      cell_grid.push([]);
+      for(let j=0; j<this.cols;j++){
+        cell_grid[i].push(new Cell(i,j,this.w, random([0,1])));
+      }
+    }
+    return cell_grid;
   }
   
   
@@ -22,7 +34,7 @@ class CATwoDim {
   }
   
     generate() {
-    let nextgen=JSON.parse(JSON.stringify(this.emptyGrid));
+    let nextgen=this.buildArray();
     let neighbours=0;
     
     for (let x = 1; x < nextgen.length-1; x++) {
@@ -30,14 +42,12 @@ class CATwoDim {
         neighbours = this.sumNeighbourState(x,y,this.cells);      
         
          //rules of life!
-        if ((this.cells[x][y] == 1) && (neighbours < 2)) 
-        {nextgen[x][y] = 0;}
-        else if ((this.cells[x][y] == 1) && (neighbours > 3))
-        {nextgen[x][y] = 0;}
-        else if ((this.cells[x][y] == 0) && (neighbours == 3))
-        {nextgen[x][y] = 1;}
-        // else if ((this.cells[x][y] == 0) && (neighbours == 0))
-        // {nextgen[x][y] = (random(100)%2==0)?1:0; }
+        if ((this.cells[x][y].state == 1) && (neighbours < 2)) 
+        {nextgen[x][y].newState(0);}
+        else if ((this.cells[x][y].state == 1) && (neighbours > 3))
+        {nextgen[x][y].newState(0);}
+        else if ((this.cells[x][y].state == 0) && (neighbours == 3))
+        {nextgen[x][y].newState(1);}
         else 
         {nextgen[x][y] = this.cells[x][y];}
       }
@@ -50,19 +60,21 @@ class CATwoDim {
     let sum=0;
     for (let i=-1; i < 2; i++) {
       for (let j=-1; j < 2; j++) {
-        sum += board[x + i][y + j];
+        sum += board[x + i][y + j].previous;
       }
     }
-    sum -= board[x][y];
+    sum -= board[x][y].previous;
     return sum;
   }
   
   display(){
     for (let i=0; i < this.cells.length;i++) {
       for (let j=0; j < this.cells.length;j++) {
-        if ((this.cells[i][j] == 1)) fill(255); //White when state = 1
-        else fill(0); //Black when state = 0
-        stroke(0);
+        this.cells[i][j].display();
+        // if ((this.cells[i][j].state == 1)) fill(255); 
+        // //White when state = 1
+        // else fill(0); //Black when state = 0
+        // stroke(0);
         rect(i*this.w, j*this.w, this.w, this.w);
       }
     }    
