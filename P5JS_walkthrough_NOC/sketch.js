@@ -1,8 +1,8 @@
-
+let lSys;
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
-  
+  lSys = new LSystem();
 }
 
 function drawCircle( x,  y,  radius) {
@@ -32,26 +32,14 @@ function drawCircle2( x,  y,  radius) {
   }
 }
 
-function drawTriangle( x, y,length) {
-  let x2 = x+length;
-  let y2 = y+length+10;
-  let x3 = x+length+20;
-  let y3 = y+length+30;
-  stroke(0);
-  noFill();
-  triangle(x,y,x2,y2,x3,y3);
-  if(length > 3) {
-    // drawTriangle(x, y, length/2);
-    // drawTriangle(x - length/3, y, length/3);
-    
-    // drawTriangle(x, y + length/3, length/3);
-  }
+function mousePressed(){
+  lSys.generate();
 }
+
 function draw() {
   
-  createCanvas(windowWidth, windowHeight);
-  background(150);
-  drawTriangle(width/2,height/2,300);
+  // createCanvas(windowWidth, windowHeight);
+  // background(150);
   // drawCircle2(width/2,height/4,200);
   // drawCircle(width/2,height-100,200);
   
