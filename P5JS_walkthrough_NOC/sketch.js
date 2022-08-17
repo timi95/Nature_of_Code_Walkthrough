@@ -36,10 +36,9 @@ function mousePressed(){
   lSys.generate();
 }
 
-function draw() {
-  
-  // createCanvas(windowWidth, windowHeight);
-  // background(150);
+function draw() {  
+  createCanvas(windowWidth, windowHeight);
+  background(150);
   // drawCircle2(width/2,height/4,200);
   // drawCircle(width/2,height-100,200);
   

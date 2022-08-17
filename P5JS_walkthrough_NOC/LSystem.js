@@ -8,20 +8,24 @@ class LSystem {
   generate(){
     for (let i = 0; i < this.current.length; i++) {
       let c = this.current.charAt(i);
-      if (c == 'A') { 
+      if (c === 'A') { 
         //Production rule A --> AB
         this.next += "AB";
-      } else if (c == 'B') { 
+      } else if (c === 'B') { 
         //Production rule B --> A
         this.next += "A";
       }
+    }    
       this.current = this.next;
       this.count++;
-      console.log(
-        "Generation " + this.count + ": " + this.current);
-    }    
+            console.log(
+        "Generation #" + this.count + ", "+
+        // "next: [" + this.next + "], "+
+        "current: " + this.current);
+
     
   }
   update(){}
-  draw(){}
+  draw(){
+  }
 }
