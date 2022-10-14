@@ -4,7 +4,8 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   background(150);
 
-  lSys = new LSystem("F", "FF+[+F-F-F]-[-F+F+F]");
+  //FF+[+F-F-F]-[-F+F+F]
+  lSys = new LSystem("F", "G");
   // turtle = new Turtle(lsys.getSentence(),width/4,radians(25));
 }
 
@@ -48,7 +49,8 @@ function draw() {
   // createCanvas(windowWidth, windowHeight);
   // drawCircle2(width/2,height/4,200);
   // drawCircle(width/2,height-100,200);
-  translate(windowWidth/2, windowHeight+100); //Start at the bottom of the window and draw.
   // turtle.render();
   
+      translate(windowWidth/2, 
+      windowHeight-10);
 }
