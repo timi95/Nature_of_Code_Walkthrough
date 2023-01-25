@@ -1,5 +1,6 @@
 let population=new Array(100);
 let matingPool=[];
+let bestPhrase='';
 function setup() {
   createCanvas(windowWidth, windowHeight);
   
@@ -8,6 +9,7 @@ function setup() {
       population[i] = new DNA(); 
       //Initializing each member of the population
     }
+
 
 }
 
@@ -21,7 +23,14 @@ function draw() {
   
   matingPool=[];
   for (let i = 0; i < population.length; i++) {
-    let n = int(population[i].fitness * 100);
+    let n = (population[i].fitness * 100);
+    bestPhrase = population[i].getPhrase();
+    if (i+1 < population.length && population[i+1].fitness > population[i].fitness) {
+      bestPhrase = population[i+1].getPhrase();
+      textSize(17);
+      text('Best phrase: '+bestPhrase+'\n\n',250, i*350);
+      text('fitness: '+population[i+1].fitness,350,i*250);
+    }
     for (let j = 0; j < n; j++) {
       matingPool.push(population[i]);
     }
@@ -41,8 +50,9 @@ function draw() {
   }
   
   for (let i = 0; i < population.length; i++) {
-    
-  console.log('gene phrase: '
-              +population[i].getPhrase()+'\n');
+    textSize(12)
+    text('gene phrase: '+population[i].getPhrase()+'\n\n',12,i*15);
   }
+  
+
 }
