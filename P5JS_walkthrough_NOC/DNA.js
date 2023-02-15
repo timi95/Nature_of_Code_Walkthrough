@@ -7,7 +7,8 @@ class DNA {
     this.mutationRate = 0.01;
     // generate
     for (let i = 0; i < this.genes.length; i++) {
-      this.genes[i] = String.
+      this.genes[i] = 
+        String.
       fromCharCode(random(32,128));
     }
   }
@@ -19,7 +20,9 @@ class DNA {
         score++;
       }
     }
-    this.fitness = (score)/this.target.length;
+    ;
+    this.fitness = map(score,0,this.target.length,0,1)
+      //(score)/this.target.length;
   }
   
   crossover(partner) {
