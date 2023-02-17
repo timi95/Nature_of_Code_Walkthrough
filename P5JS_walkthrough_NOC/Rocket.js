@@ -1,23 +1,33 @@
+
 class Rocket {
   
-  constructor() {  
-    this.dna = new DNA2();
-    this.fitness;
-    this.location=createVector(windowWidth/2, windowHeight);
+  constructor({_heredity=new DNA2()}={}) {  
+    this.dna = _heredity;
+    this.fitness = 0;
+    this.completed = false;
+    this.location=createVector(width/2, height);
     this.velocity=createVector(0,0);//(random(-2,2),random(-2,2));
     this.acceleration=createVector(-0.001, 0.001);
     this.geneCounter = 0;
-    this.color = {r:random(255),
-                  g:random(255),
-                  b:random(255)}
+    this.dna.initColor();
+    this.color = {r:this.dna.color.r,
+                  g:this.dna.color.g,
+                  b:this.dna.color.b};
   }
   
   
-  funFitness() {
-    let d = p5.Vector.dist(this.location, this.target);
-    //How close did we get?
-    this.fitness = pow(1/d,2); 
-    //Fitness is inversely proportional to distance.
+  funFitness(target) {
+    // Takes distance to target
+    var d =  dist(this.location.x,this.location.y, 
+                  target.x, target.y);
+    
+    // Maps range of fitness
+    this.fitness = map(d, 0, width, width, 0)*-1;
+    // If rocket gets to target increase fitness of rocket
+    if (this.completed) {
+      console.log('Target reached by ', this,'!s')
+      this.fitness *= 10;
+    }
   }
   
   applyForce(f) {
@@ -25,6 +35,11 @@ class Rocket {
   }
   
   update() { 
+    let  d = dist(this.location.x, this.location.y, target.x, target.y);
+    if(d < 10){
+      this.completed = true;
+      this.location = target.copy();
+    };
       //Our simple physics model (Euler integration)
     this.velocity.add(this.acceleration); 
       //Velocity changes according to acceleration.

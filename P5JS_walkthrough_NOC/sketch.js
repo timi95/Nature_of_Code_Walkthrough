@@ -1,7 +1,9 @@
+
 let lifetime;
 let lifeCounter;
 let population;
 let target;
+let lifeP;
 
 
 function setup() {
@@ -10,20 +12,22 @@ function setup() {
   lifeCounter = 0;
   let mutationRate = 0.01;
 
-  population = new Population(mutationRate, 50);
-  target = createVector(windowWidth/2, 5)
+  lifeP = createP();
+  target = createVector(width/2, 0)
+  population = new Population(mutationRate, 50, target);
 }
 
 function draw() {
   background(100);
-  if (lifeCounter < lifetime) { 
     population.live();
+    lifeP.html(lifeCounter);
     lifeCounter++;
-  } else {
-    lifeCounter = 0;
-    population.fitness();
+ 
+  if (lifeCounter == lifetime) { 
+    population.evaluate();
     population.selection();
-    population.reproduction();
+    // population.reproduction();
+    lifeCounter = 0;
   }
   
   ellipse(target.x, target.y, 16,16);
