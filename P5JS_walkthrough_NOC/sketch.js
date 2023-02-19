@@ -5,6 +5,11 @@ let population;
 let target;
 let lifeP;
 
+// Dimensions of barrier
+var rx = 100;
+var ry = 150;
+var rw = 200;
+var rh = 10;
 
 function setup() {
   createCanvas(windowWidth, 480);
@@ -13,7 +18,7 @@ function setup() {
   let mutationRate = 0.01;
 
   lifeP = createP();
-  target = createVector(width/2, 0)
+  target = createVector(width/2, 75);
   population = new Population(mutationRate, 50, target);
 }
 

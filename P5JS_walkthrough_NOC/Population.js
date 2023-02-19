@@ -1,16 +1,16 @@
 class Population {
   
   constructor({
-    _mutationRate=0.01, _popsize=10, 
+    _mutationRate=0.01, _popsize=25, 
     _target=createVector(width/2, 0)}={}) {
     this.mutationRate=_mutationRate;
-    this.population=[];
+    this.rockets=[];
     this.matingPool=[];
     this.popsize=_popsize;
     this.target=_target;
     
     for (var i = 0; i < this.popsize; i++) {
-      this.population[i] = new Rocket();
+      this.rockets[i] = new Rocket();
     }
 
   }
@@ -18,36 +18,37 @@ class Population {
     evaluate(){
       let maxfit=0;
       // Iterate through all rockets and calcultes their fitness
-      for (let i = 0; i < this.population.length; i++) {
+      for (let i = 0; i < this.popsize; i++) {
         // Calculates fitness
-        this.population[i].funFitness(this.target);
+        this.rockets[i].calcFitness(this.target);
         // If current fitness is greater than max, then make max equal to current
-        if(this.population[i].fitness > maxfit) { 
-          maxfit = this.population[i].fitness; 
+        if(this.rockets[i].fitness > maxfit) { 
+          maxfit = this.rockets[i].fitness; 
         }
       }
       
       // Normalises fitnesses
-      for (let i = 0; i < this.population.length; i++) {
-        this.population[i].fitness /= maxfit;
+      for (let i = 0; i < this.popsize; i++) {
+        this.rockets[i].fitness /= maxfit;
       }
       
       this.matingPool=[]
       // Take rockets fitness make in to scale of 1 to 100
       // A rocket with high fitness will highly likely will be in the mating pool
-      for (let i = 0; i < this.population.length; i++) {
-        let n = this.population[i].fitness * 100;
-        for (var j = 0; j < n; j++) {
-          this.matingPool.push(this.population[i]);
+      for (let i = 0; i < this.rockets.length; i++) {
+        let n = this.rockets[i].fitness*100;
+        for (let j = 0; j < n; j++) {
+          this.matingPool.push(this.rockets[i]);
+          console.log(`mating values=> j:${j} \n n:${n}`)
         }
       }
       // console.log('content of Mating Pool: ', this.matingPool)
-      // console.log('highest fitness in population: ', maxfit, this.population)
+      // console.log('highest fitness in rockets: ', maxfit, this.rockets)
     }
     
     selection(){
-      var newPopulation = [];
-      for (var i = 0; i < this.population.length; i++) {
+      var newRockets = [];
+      for (var i = 0; i < this.rockets.length; i++) {
         // Picks random dna
         var parentA = random(this.matingPool).dna;
         var parentB = random(this.matingPool).dna;
@@ -55,14 +56,14 @@ class Population {
         var child = parentA.crossover(parentB);
         child.mutate();
         // Creates new rocket with child dna
-        newPopulation[i] = new Rocket(child);
+        newRockets[i] = new Rocket(child);
       }
-      this.population = newPopulation;
+      this.rockets = newRockets;
     }  
   
     live () {
-    for (let i = 0; i < this.population.length; i++) {
-      this.population[i].run();
+    for (let i = 0; i < this.rockets.length; i++) {
+      this.rockets[i].run();
     }
   }
   
