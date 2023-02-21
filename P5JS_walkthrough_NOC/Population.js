@@ -39,11 +39,8 @@ class Population {
         let n = this.rockets[i].fitness*100;
         for (let j = 0; j < n; j++) {
           this.matingPool.push(this.rockets[i]);
-          console.log(`mating values=> j:${j} \n n:${n}`)
         }
       }
-      // console.log('content of Mating Pool: ', this.matingPool)
-      // console.log('highest fitness in rockets: ', maxfit, this.rockets)
     }
     
     selection(){
