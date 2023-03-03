@@ -1,32 +1,34 @@
-
-let vehicle;
-let vehicleLocation;
-let targets=[];
+let network;
 function setup(){
   createCanvas(windowWidth, windowHeight);
-  vehicleLocation = createVector(random(windowWidth), random(windowHeight));
-  for(let i=0; i<7;i++){
-    targets.push(createVector(random(width), random(height)));
-  }
-  ptron = new Perceptron2(targets.length, 0.01);
-  ptronVehicle = new PerceptronVehicle(targets.length, 
-                                  vehicleLocation.x, vehicleLocation.y);
+      network = new Network(width/2,height/2); //Make a Network.
+      let a = new Neuron(-200,0); //Make the Neurons.
+      let b = new Neuron(0,100);
+      let c = new Neuron(0,-100);
+      let d = new Neuron(200,0);
+  
+      network.connect(a,b); //Making connections between the neurons
+      network.connect(a,c);
+      network.connect(b,d);
+      network.connect(c,d);
+  
+      network.addNeuron(a); //Add the Neurons to the network.
+      network.addNeuron(b);
+      network.addNeuron(c);
+      network.addNeuron(d);
+  
+      network.feedforward(random(1));
 }
 
 function draw(){
-  background(200);
   createCanvas(windowWidth, windowHeight);
+  background(200);
+  network.display();
   
-  ptronVehicle.update();
-  ptronVehicle.display();
-  ptronVehicle.steer(targets);
-  targets.forEach(t=>{
-    
-    push();
-      translate(t.x, t.y);
-      fill('dodgerblue');
-      ellipse(0,0,15,15);
-    pop();
-  });
-  
+  network.update();
+  if (frameCount % 30 == 0) {
+    // We are choosing to send in an input every
+    // 30 frames.
+    network.feedforward(random(1));
+  }
 }
