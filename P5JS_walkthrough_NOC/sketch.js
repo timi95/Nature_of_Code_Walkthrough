@@ -1,48 +1,32 @@
-let ptron;
-let _point;
-let result;
-let count=0;
-let training=new Array(2000);
-let x,y;
 
-function f(x) {
-  return 2*x+1;
-}
-
+let vehicle;
+let vehicleLocation;
+let targets=[];
 function setup(){
   createCanvas(windowWidth, windowHeight);
-  ptron = new Perceptron(3);
-  _point = [50,-12,1];
-  result = ptron.feedforward(_point);
-  
-  
-  
-  for (let i = 0; i < training.length; i++) {
-    x = random(-width/2,width/2);
-    y = random(-height/2,height/2);
-    let answer = 1;
-    if (y < f(x)) answer = -1;
-    training[i] = new Trainer(x, y, answer);
+  vehicleLocation = createVector(random(windowWidth), random(windowHeight));
+  for(let i=0; i<7;i++){
+    targets.push(createVector(random(width), random(height)));
   }
+  ptron = new Perceptron2(targets.length, 0.01);
+  ptronVehicle = new PerceptronVehicle(targets.length, 
+                                  vehicleLocation.x, vehicleLocation.y);
 }
 
-
 function draw(){
-  createCanvas(windowWidth, windowHeight);
   background(200);
-  translate(width/2,height/2);
-  line(-width/2,-height/2,
-       width/2,height/2);
+  createCanvas(windowWidth, windowHeight);
   
-  ptron.train(training[count].inputs, training[count].answer);
-  count = (count + 1) % training.length;
-  
-  for (let i = 0; i < count; i++) {
-    stroke(0);
-    let guess = ptron.feedforward(training[i].inputs);
-    if (guess > 0) noFill();
-    else fill(0);
+  ptronVehicle.update();
+  ptronVehicle.display();
+  ptronVehicle.steer(targets);
+  targets.forEach(t=>{
     
-    ellipse(training[i].inputs[0], training[i].inputs[1], 8, 8);
-  }
+    push();
+      translate(t.x, t.y);
+      fill('dodgerblue');
+      ellipse(0,0,15,15);
+    pop();
+  });
+  
 }

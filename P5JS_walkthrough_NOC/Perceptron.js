@@ -1,11 +1,11 @@
 class Perceptron {
-   constructor(n){
+   constructor({n, _c=0.01}={}){
     this.weights = new Array(n);
      for (let i = 0; i < this.weights.length; i++){
        //The weights are picked randomly to start
        this.weights[i] = random(-1,1); 
      }
-      this.c = 0.01; //learning constant
+      this.c = _c; //learning constant
    }
   
   activate(sum) { //The activation function
